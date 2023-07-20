@@ -1,16 +1,8 @@
 import classNames from 'classnames';
+import { PlaceCardProps } from '../types/offer-types';
 
-interface OfferCardProps {
-	isPremium ?: boolean;
-	image: string;
-	price: number;
-	isFavorite ?: boolean;
-	rating: 0 | 1 | 2 | 3 | 4 | 5;
-	type: string;
-	title: string;
-}
-
-export const PlaceCard = ({isPremium = false, image, price, isFavorite = false, rating, type, title}: OfferCardProps) => {
+export const PlaceCard = (props: PlaceCardProps) => {
+	const {isPremium = false, previewImage, price, isFavorite = false, rating, type, title} = props;
 	const favoriteLabel = `${isFavorite ? 'In' : 'To'} bookmarks`;
 	const favoriteClass = classNames('place-card__bookmark-button', {'place-card__bookmark-button--active' : isFavorite}, 'button');
 
@@ -24,7 +16,7 @@ export const PlaceCard = ({isPremium = false, image, price, isFavorite = false, 
 				<a href="#">
 					<img
 						className="place-card__image"
-						src={image}
+						src={previewImage}
 						width={260}
 						height={200}
 						alt="Place image"
