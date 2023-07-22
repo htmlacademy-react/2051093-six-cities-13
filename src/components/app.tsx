@@ -7,11 +7,11 @@ import { OfferPage } from '../pages/offer/offer';
 import { NotFoundPage } from '../pages/not-found-page';
 import PrivateRoute from './private-route';
 import { HelmetProvider } from 'react-helmet-async';
-import { PlaceCardProps } from '../types/offer-types';
+import { OfferProps } from '../types/offer-types';
 
 type AppProps = {
 	placesCount: number;
-	offers: PlaceCardProps[];
+	offers: OfferProps[];
 }
 
 export const App = ({placesCount, offers}: AppProps): JSX.Element => (

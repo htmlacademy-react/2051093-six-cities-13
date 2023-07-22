@@ -1,13 +1,13 @@
 import { Helmet } from 'react-helmet-async';
 import { Header } from '../../components/header';
 import { PlaceCard } from '../../components/place-card';
-import { PlaceCardProps } from '../../types/offer-types';
+import { OfferProps } from '../../types/offer-types';
 import { CITIES } from '../../consts';
 import classNames from 'classnames';
 
 type MainPageProps = {
 	placesCount?: number;
-	offers: PlaceCardProps[];
+	offers: OfferProps[];
 };
 
 export const MainPage = ({ placesCount, offers}: MainPageProps): JSX.Element => (

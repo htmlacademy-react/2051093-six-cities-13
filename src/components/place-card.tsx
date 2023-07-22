@@ -1,7 +1,7 @@
 import classNames from 'classnames';
-import { PlaceCardProps } from '../types/offer-types';
+import { OfferProps } from '../types/offer-types';
 
-export const PlaceCard = (props: PlaceCardProps) => {
+export const PlaceCard = (props: OfferProps) => {
 	const {isPremium = false, previewImage, price, isFavorite = false, rating, type, title} = props;
 	const favoriteLabel = `${isFavorite ? 'In' : 'To'} bookmarks`;
 	const favoriteClass = classNames('place-card__bookmark-button', {'place-card__bookmark-button--active' : isFavorite}, 'button');
