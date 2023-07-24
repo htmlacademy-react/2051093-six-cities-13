@@ -1,6 +1,7 @@
 import classNames from 'classnames';
 import { OfferProps } from '../types/offer-types';
 import { Link } from 'react-router-dom';
+import { useState } from 'react';
 
 export const PlaceCard = (props: OfferProps) => {
 	const {isPremium = false, previewImage, price, isFavorite = false, rating, type, title, id} = props;
@@ -8,8 +9,9 @@ export const PlaceCard = (props: OfferProps) => {
 	const favoriteClass = classNames('place-card__bookmark-button', {'place-card__bookmark-button--active' : isFavorite}, 'button');
 	const href = `/offer/${id}`;
 
+	const [currentId, setId] = useState(id);
 	const handleMouseEnter = () => {
-		console.log(id);
+		setId(currentId);
 	};
 
 	return (
