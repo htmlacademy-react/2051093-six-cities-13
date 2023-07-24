@@ -1,39 +1,38 @@
-import classNames from 'classnames';
-import { OfferProps } from '../types/offer-types';
 import { Link } from 'react-router-dom';
+import { OfferProps } from '../types/offer-types';
+import classNames from 'classnames';
 
-export const PlaceCard = (props: OfferProps) => {
+
+export const FavoritesCard = (props: OfferProps) => {
 	const {isPremium = false, previewImage, price, isFavorite = false, rating, type, title, id} = props;
 	const favoriteLabel = `${isFavorite ? 'In' : 'To'} bookmarks`;
 	const favoriteClass = classNames('place-card__bookmark-button', {'place-card__bookmark-button--active' : isFavorite}, 'button');
 	const href = `/offer/${id}`;
 
-	const handleMouseEnter = () => {
-		console.log(id);
-	};
-
 	return (
-		<article className="cities__card place-card" onMouseEnter={handleMouseEnter}>
+		<article className="favorites__card place-card">
 			{isPremium && (
 				<div className="place-card__mark">
 					<span>Premium</span>
 				</div>)}
-			<div className="cities__image-wrapper place-card__image-wrapper">
+			<div className="favorites__image-wrapper place-card__image-wrapper">
 				<Link to={href}>
 					<img
 						className="place-card__image"
 						src={previewImage}
-						width={260}
-						height={200}
+						width={150}
+						height={110}
 						alt="Place image"
 					/>
 				</Link>
 			</div>
-			<div className="place-card__info">
+			<div className="favorites__card-info place-card__info">
 				<div className="place-card__price-wrapper">
 					<div className="place-card__price">
 						<b className="place-card__price-value">€{price}</b>
-						<span className="place-card__price-text">/&nbsp;night</span>
+						<span className="place-card__price-text">
+						/&nbsp;night
+						</span>
 					</div>
 					<button
 						className={favoriteClass}
@@ -63,4 +62,3 @@ export const PlaceCard = (props: OfferProps) => {
 		</article>
 	);
 };
-

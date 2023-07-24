@@ -7,20 +7,22 @@ import { OfferPage } from '../pages/offer/offer';
 import { NotFoundPage } from '../pages/not-found-page';
 import PrivateRoute from './private-route';
 import { HelmetProvider } from 'react-helmet-async';
-import { OfferProps } from '../types/offer-types';
+import { FullOfferProps, OfferProps } from '../types/offer-types';
+import { ReviewProps } from '../types/review';
 
 type AppProps = {
-	placesCount: number;
 	offers: OfferProps[];
+	fullOffers: FullOfferProps[];
+	reviews: ReviewProps[];
 }
 
-export const App = ({placesCount, offers}: AppProps): JSX.Element => (
+export const App = ({offers, fullOffers, reviews}: AppProps): JSX.Element => (
 	<HelmetProvider>
 		<BrowserRouter>
 			<Routes>
 				<Route
 					path={AppRoute.Main}
-					element={<MainPage placesCount={placesCount} offers={offers} />}
+					element={<MainPage offers={offers} />}
 				/>
 				<Route
 					path={AppRoute.Login}
@@ -29,14 +31,14 @@ export const App = ({placesCount, offers}: AppProps): JSX.Element => (
 				<Route
 					path={AppRoute.Favorites}
 					element={
-						<PrivateRoute authorizationStatus={AuthorizationStatus.NoAuth}>
-							<FavoritesPage />
+						<PrivateRoute authorizationStatus={AuthorizationStatus.Auth}>
+							<FavoritesPage offers={offers}/>
 						</PrivateRoute>
 					}
 				/>
 				<Route
 					path={AppRoute.Offer}
-					element={<OfferPage />}
+					element={<OfferPage fullOffers={fullOffers} reviews={reviews}/>}
 				/>
 				<Route
 					path='*'

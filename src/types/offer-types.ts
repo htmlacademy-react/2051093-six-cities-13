@@ -1,12 +1,7 @@
-interface Location {
+export interface Location {
 	latitude: number;
 	longitude: number;
 	zoom: number;
-}
-
-interface City {
-	name: string;
-	location: Location;
 }
 
 export interface OfferProps {
@@ -18,20 +13,23 @@ export interface OfferProps {
 	rating: number;
 	previewImage: string;
 	id: string;
-	city: City;
+	city: {
+		name: string;
+		location: Location;
+	};
 	location: Location;
 }
 
 export interface FullOfferProps extends Omit<OfferProps, 'previewImage'> {
 	description: string;
 	bedrooms: number;
-	goods: [string];
+	goods: string[];
 	host: {
 		name: string;
 		avatarUrl: string;
 		isPro: boolean;
 	};
-	images: [string];
+	images: string[];
 	maxAdults: number;
 }
 

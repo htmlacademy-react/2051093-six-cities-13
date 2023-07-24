@@ -2,7 +2,7 @@ export const enum AppRoute {
 	Main = '/',
 	Login = '/login',
 	Favorites = '/favorites',
-	Offer = '/offer',
+	Offer = '/offer/:id',
 }
 
 export const enum AuthorizationStatus {
@@ -19,4 +19,11 @@ export const CITIES = [
 	'Amsterdam',
 	'Hamburg',
 	'Dusseldorf'
+];
+
+export const OFFER_TYPE = [
+	'apartment',
+	'room',
+	'house',
+	'hotel'
 ];

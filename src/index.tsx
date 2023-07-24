@@ -1,11 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import {App} from './components/app';
-import {offers} from './mocks/offers';
+import {mockOffers} from './mocks/offers';
+import { mockReviews } from './mocks/review';
 
-const enum Setting {
-	placesCount = 312,
-}
+const mockedOffers = mockOffers();
+const mockedReviews = mockReviews();
 
 const root = ReactDOM.createRoot(
 	document.getElementById('root') as HTMLElement
@@ -13,9 +13,6 @@ const root = ReactDOM.createRoot(
 
 root.render(
 	<React.StrictMode>
-		<App
-			placesCount = {Setting.placesCount}
-			offers={offers}
-		/>
+		<App offers={mockedOffers} fullOffers={mockedOffers} reviews={mockedReviews}/>
 	</React.StrictMode>
 );
