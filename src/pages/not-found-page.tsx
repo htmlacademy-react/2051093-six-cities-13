@@ -4,7 +4,7 @@ import { Footer } from '../components/footer';
 
 export const NotFoundPage = () => (
 	<div className="page">
-		<Header />
+		<Header hideNavigation/>
 		<main className="page__main page__main--favorites">
 			<div className="page__favorites-container container">
 				<section className="favorites">
