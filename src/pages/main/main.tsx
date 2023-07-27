@@ -1,10 +1,11 @@
 import { Helmet } from 'react-helmet-async';
 import { Header } from '../../components/header';
-import { PlaceCard } from '../../components/place-card';
+import { PlaceCard } from '../../components/cards/place-card';
 import { OfferProps } from '../../types/offer-types';
 import classNames from 'classnames';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { OffersMap } from '../../components/map/map';
 
 type MainPageProps = {
 	offers: OfferProps[];
@@ -88,7 +89,7 @@ export const MainPage = ({offers}: MainPageProps): JSX.Element => {
 							</div>
 						</section>
 						<div className="cities__right-section">
-							<section className="cities__map map" />
+							<OffersMap city={offersByCity[selectedCity][0]} points={offersByCity[selectedCity]} selectedPointId={''}/>
 						</div>
 					</div>
 				</div>
