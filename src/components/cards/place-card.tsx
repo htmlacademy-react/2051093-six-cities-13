@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import { OfferProps } from '../types/offer-types';
+import { OfferProps } from '../../types/offer-types';
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
 

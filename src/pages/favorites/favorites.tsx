@@ -2,7 +2,7 @@ import { Helmet } from 'react-helmet-async';
 import { Footer } from '../../components/footer';
 import { Header } from '../../components/header';
 import { OfferProps } from '../../types/offer-types';
-import { FavoritesCard } from '../../components/favorite-card';
+import { FavoritesCard } from '../../components/cards/favorite-card';
 import { Link } from 'react-router-dom';
 
 type FaforitesPageProps = {
