@@ -3,20 +3,24 @@ import { OfferProps } from '../../types/offer-types';
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
 
-export const PlaceCard = (props: OfferProps) => {
-	const {isPremium = false, previewImage, price, isFavorite = false, rating, type, title, id} = props;
-	const favoriteLabel = `${isFavorite ? 'In' : 'To'} bookmarks`;
-	const favoriteClass = classNames('place-card__bookmark-button', {'place-card__bookmark-button--active' : isFavorite}, 'button');
-	const href = `/offer/${id}`;
+type PlaceCardProps = {
+	offer: OfferProps;
+	className?: string | undefined;
+};
 
-	const [currentId, setId] = useState(id);
+export const PlaceCard = ({offer, className}: PlaceCardProps) => {
+	const favoriteLabel = `${offer.isFavorite ? 'In' : 'To'} bookmarks`;
+	const favoriteClass = classNames('place-card__bookmark-button', {'place-card__bookmark-button--active' : offer.isFavorite}, 'button');
+	const href = `/offer/${offer.id}`;
+
+	const [currentId, setId] = useState(offer.id);
 	const handleMouseEnter = () => {
 		setId(currentId);
 	};
 
 	return (
-		<article className="cities__card place-card" onMouseEnter={handleMouseEnter}>
-			{isPremium && (
+		<article className={className} onMouseEnter={handleMouseEnter}>
+			{offer.isPremium && (
 				<div className="place-card__mark">
 					<span>Premium</span>
 				</div>)}
@@ -24,7 +28,7 @@ export const PlaceCard = (props: OfferProps) => {
 				<Link to={href}>
 					<img
 						className="place-card__image"
-						src={previewImage}
+						src={offer.previewImage}
 						width={260}
 						height={200}
 						alt="Place image"
@@ -34,7 +38,7 @@ export const PlaceCard = (props: OfferProps) => {
 			<div className="place-card__info">
 				<div className="place-card__price-wrapper">
 					<div className="place-card__price">
-						<b className="place-card__price-value">€{price}</b>
+						<b className="place-card__price-value">€{offer.price}</b>
 						<span className="place-card__price-text">/&nbsp;night</span>
 					</div>
 					<button
@@ -53,14 +57,14 @@ export const PlaceCard = (props: OfferProps) => {
 				</div>
 				<div className="place-card__rating rating">
 					<div className="place-card__stars rating__stars">
-						<span style={{ width: `${rating * 20}%` }} />
+						<span style={{ width: `${offer.rating * 20}%` }} />
 						<span className="visually-hidden">Rating</span>
 					</div>
 				</div>
 				<h2 className="place-card__name">
-					<Link to={href}>{title}</Link>
+					<Link to={href}>{offer.title}</Link>
 				</h2>
-				<p className="place-card__type">{type}</p>
+				<p className="place-card__type">{offer.type}</p>
 			</div>
 		</article>
 	);
