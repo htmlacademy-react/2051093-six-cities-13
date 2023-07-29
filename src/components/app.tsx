@@ -38,7 +38,7 @@ export const App = ({offers, fullOffers, reviews}: AppProps): JSX.Element => (
 				/>
 				<Route
 					path={AppRoute.Offer}
-					element={<OfferPage fullOffers={fullOffers} reviews={reviews}/>}
+					element={<OfferPage fullOffers={fullOffers} reviews={reviews} offers={offers}/>}
 				/>
 				<Route
 					path='*'

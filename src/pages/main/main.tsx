@@ -27,7 +27,7 @@ export const MainPage = ({offers}: MainPageProps): JSX.Element => {
 	const cities = Object.keys(offersByCity);
 
 	const [selectedCity, setCity] = useState(cities[0]);
-	const offerElements = offersByCity[selectedCity].map((offer) => (<PlaceCard {...offer} key={offer.id}/>));
+	const offerElements = offersByCity[selectedCity].map((offer) => (<PlaceCard offer={offer} key={offer.id} className={'cities__card place-card'}/>));
 
 	return (
 		<div className="page page--gray page--main">
@@ -89,7 +89,7 @@ export const MainPage = ({offers}: MainPageProps): JSX.Element => {
 							</div>
 						</section>
 						<div className="cities__right-section">
-							<OffersMap city={offersByCity[selectedCity][0]} points={offersByCity[selectedCity]} selectedPointId={''}/>
+							<OffersMap city={offersByCity[selectedCity][0]} points={offersByCity[selectedCity]} selectedPointId={''} className={'cities__map map'}/>
 						</div>
 					</div>
 				</div>

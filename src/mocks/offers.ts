@@ -3,8 +3,8 @@ import { FullOfferProps, Location, OfferProps } from '../types/offer-types';
 import { faker } from '@faker-js/faker';
 
 const mockLocation = ():Location => ({
-	latitude: faker.location.latitude(),
-	longitude: faker.location.longitude(),
+	latitude: faker.location.latitude({max: 54.5260, min: 53.0000}),
+	longitude: faker.location.longitude({max: 15.2551, min: 14.0000}),
 	zoom: faker.number.int({max:16, min:10})
 });
 
