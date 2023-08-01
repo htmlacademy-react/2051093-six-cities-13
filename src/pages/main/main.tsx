@@ -6,13 +6,13 @@ import { useState } from 'react';
 
 export const MainPage = () => {
 	const [id, setId] = useState<null | string>(null);
-	function handleMouseEnter(offerId: string): void {
+	const handleMouseEnter = (offerId: string): void => {
 		setId(offerId);
-	}
+	};
 
-	function handleMouseLeave(): void {
+	const handleMouseLeave = (): void => {
 		setId(null);
-	}
+	};
 
 	return (
 		<div className="page page--gray page--main">
