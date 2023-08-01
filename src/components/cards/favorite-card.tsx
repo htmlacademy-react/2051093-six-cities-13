@@ -3,15 +3,14 @@ import { OfferProps } from '../../types/offer-types';
 import classNames from 'classnames';
 
 
-export const FavoritesCard = (props: OfferProps) => {
-	const {isPremium = false, previewImage, price, isFavorite = false, rating, type, title, id} = props;
-	const favoriteLabel = `${isFavorite ? 'In' : 'To'} bookmarks`;
-	const favoriteClass = classNames('place-card__bookmark-button', {'place-card__bookmark-button--active' : isFavorite}, 'button');
-	const href = `/offer/${id}`;
+export const FavoritesCard = (offer: OfferProps) => {
+	const favoriteLabel = `${offer.isFavorite ? 'In' : 'To'} bookmarks`;
+	const favoriteClass = classNames('place-card__bookmark-button', {'place-card__bookmark-button--active' : offer.isFavorite}, 'button');
+	const href = `/offer/${offer.id}`;
 
 	return (
 		<article className="favorites__card place-card">
-			{isPremium && (
+			{offer.isPremium && (
 				<div className="place-card__mark">
 					<span>Premium</span>
 				</div>)}
@@ -19,7 +18,7 @@ export const FavoritesCard = (props: OfferProps) => {
 				<Link to={href}>
 					<img
 						className="place-card__image"
-						src={previewImage}
+						src={offer.previewImage}
 						width={150}
 						height={110}
 						alt="Place image"
@@ -29,7 +28,7 @@ export const FavoritesCard = (props: OfferProps) => {
 			<div className="favorites__card-info place-card__info">
 				<div className="place-card__price-wrapper">
 					<div className="place-card__price">
-						<b className="place-card__price-value">€{price}</b>
+						<b className="place-card__price-value">€{offer.price}</b>
 						<span className="place-card__price-text">
 						/&nbsp;night
 						</span>
@@ -50,14 +49,14 @@ export const FavoritesCard = (props: OfferProps) => {
 				</div>
 				<div className="place-card__rating rating">
 					<div className="place-card__stars rating__stars">
-						<span style={{ width: `${rating * 20}%` }} />
+						<span style={{ width: `${offer.rating * 20}%` }} />
 						<span className="visually-hidden">Rating</span>
 					</div>
 				</div>
 				<h2 className="place-card__name">
-					<Link to={href}>{title}</Link>
+					<Link to={href}>{offer.title}</Link>
 				</h2>
-				<p className="place-card__type">{type}</p>
+				<p className="place-card__type">{offer.type}</p>
 			</div>
 		</article>
 	);

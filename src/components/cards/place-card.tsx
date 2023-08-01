@@ -1,25 +1,23 @@
 import classNames from 'classnames';
 import { OfferProps } from '../../types/offer-types';
 import { Link } from 'react-router-dom';
-import { useState } from 'react';
+import { MouseEventHandler } from 'react';
 
 type PlaceCardProps = {
 	offer: OfferProps;
 	className?: string | undefined;
+	onMouseEnter?: MouseEventHandler<HTMLElement> | undefined;
+	onMouseLeave?: MouseEventHandler<HTMLElement> | undefined;
 };
 
-export const PlaceCard = ({offer, className}: PlaceCardProps) => {
+
+export const PlaceCard = ({offer, className, onMouseEnter, onMouseLeave}: PlaceCardProps) => {
 	const favoriteLabel = `${offer.isFavorite ? 'In' : 'To'} bookmarks`;
 	const favoriteClass = classNames('place-card__bookmark-button', {'place-card__bookmark-button--active' : offer.isFavorite}, 'button');
 	const href = `/offer/${offer.id}`;
 
-	const [currentId, setId] = useState(offer.id);
-	const handleMouseEnter = () => {
-		setId(currentId);
-	};
-
 	return (
-		<article className={className} onMouseEnter={handleMouseEnter}>
+		<article className={className} onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
 			{offer.isPremium && (
 				<div className="place-card__mark">
 					<span>Premium</span>
