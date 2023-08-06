@@ -8,6 +8,7 @@ import { Review } from '../../components/offer-page/reviews';
 import { ReviewForm } from '../../components/offer-page/review-form';
 import { NearPlacesOffers } from '../../components/cards/near-place-list';
 import { OffersMap } from '../../components/map/map';
+import { NotFoundPage } from '../not-found-page';
 
 type OfferPageProps = {
 	fullOffers: FullOfferProps[];
@@ -17,7 +18,11 @@ type OfferPageProps = {
 
 export const OfferPage = ({fullOffers, reviews, offers}: OfferPageProps) => {
 	const {id} = useParams();
-	const fullOffer = fullOffers.find((item) => item.id === id) as FullOfferProps;
+	const fullOffer = fullOffers.find((item) => item.id === id);
+	if (fullOffer === undefined) {
+		return <NotFoundPage />;
+	}
+
 	const favoriteClass = classNames('offer__bookmark-button', {'offer__bookmark-button--active' : fullOffer.isFavorite}, 'button');
 	const favoriteLabel = `${fullOffer.isFavorite ? 'In' : 'To'} bookmarks`;
 
@@ -119,7 +124,7 @@ export const OfferPage = ({fullOffers, reviews, offers}: OfferPageProps) => {
 							</section>
 						</div>
 					</div>
-					<OffersMap city={offers[0]} points={offers} selectedPointId={''} className={'offer__map map'}/>
+					<OffersMap city={offers[0]} points={offers.slice(0, 4)} selectedPointId={fullOffer.id} className={'offer__map map'}/>
 				</section>
 				<div className="container">
 					<section className="near-places places">
