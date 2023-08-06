@@ -3,7 +3,7 @@ import { URL_MARKER_CURRENT, URL_MARKER_DEFAULT } from '../../consts';
 import { OfferProps } from '../../types/offer-types';
 import { useEffect, useRef } from 'react';
 import 'leaflet/dist/leaflet.css';
-import { useMap } from './use-map';
+import { useMap } from '../../hooks/use-map';
 
 type MapProps = {
   city: OfferProps;

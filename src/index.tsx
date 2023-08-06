@@ -3,8 +3,10 @@ import ReactDOM from 'react-dom/client';
 import {App} from './components/app';
 import {mockOffers} from './mocks/offers';
 import { mockReviews } from './mocks/review';
+import { Provider } from 'react-redux';
+import { store } from './store';
 
-const mockedOffers = mockOffers();
+export const mockedOffers = mockOffers();
 const mockedReviews = mockReviews();
 
 const root = ReactDOM.createRoot(
@@ -13,6 +15,8 @@ const root = ReactDOM.createRoot(
 
 root.render(
 	<React.StrictMode>
-		<App offers={mockedOffers} fullOffers={mockedOffers} reviews={mockedReviews}/>
+		<Provider store={store}>
+			<App offers={mockedOffers} fullOffers={mockedOffers} reviews={mockedReviews}/>
+		</Provider>
 	</React.StrictMode>
 );
