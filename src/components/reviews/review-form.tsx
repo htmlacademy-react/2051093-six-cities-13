@@ -8,7 +8,8 @@ export const ReviewForm = () => {
 	});
 
 	const ReviewValidate = {
-		MinTextLength: 50
+		MinTextLength: 50,
+		MaxTextLength: 300
 	} as const;
 
 	const handleFieldChange = ({target}: ChangeEvent<HTMLTextAreaElement>) => {
@@ -29,9 +30,7 @@ export const ReviewForm = () => {
 			<label className="reviews__label form__label" htmlFor="review">
 						Your review
 			</label>
-			<div className="reviews__rating-form form__rating">
-				<FormRating />
-			</div>
+			<FormRating />
 			<textarea
 				className="reviews__textarea form__textarea"
 				id="review"
@@ -39,6 +38,8 @@ export const ReviewForm = () => {
 				placeholder="Tell how was your stay, what you like and what can be improved"
 				defaultValue={formData.comment}
 				onChange={handleFieldChange}
+				minLength={ReviewValidate.MinTextLength}
+				maxLength={ReviewValidate.MaxTextLength}
 			/>
 			<div className="reviews__button-wrapper">
 				<p className="reviews__help">

@@ -1,5 +1,5 @@
 import { CITIES, OFFER_TYPE } from '../consts';
-import { FullOfferProps, Location, OfferProps } from '../types/offer-types';
+import { Location, OfferProps } from '../types/offer-types';
 import { faker } from '@faker-js/faker';
 
 const mockLocation = ():Location => ({
@@ -22,10 +22,6 @@ export const mockOfferItem = (): OfferProps => ({
 		location: mockLocation(),
 	},
 	location: mockLocation(),
-});
-
-export const mockFullOfferItem = (): OfferProps & FullOfferProps => ({
-	...mockOfferItem(),
 	description: faker.lorem.sentences(2, '\n'),
 	bedrooms: faker.number.int({max: 10, min: 1}),
 	goods: faker.lorem.words(5).split(' '),
@@ -38,4 +34,4 @@ export const mockFullOfferItem = (): OfferProps & FullOfferProps => ({
 	maxAdults: faker.number.int({max: 10, min: 1}),
 });
 
-export const mockOffers = () => Array.from({length:60}, mockFullOfferItem);
+export const mockOffers = () => Array.from({length:60}, mockOfferItem);

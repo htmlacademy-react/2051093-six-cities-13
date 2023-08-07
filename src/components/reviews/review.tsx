@@ -36,4 +36,3 @@ export const Review = (review: ReviewProps) => {
 		</li>
 	);
 };
-
