@@ -34,16 +34,39 @@ export const URL_MARKER_DEFAULT = './img/pin.svg';
 
 export const URL_MARKER_CURRENT = './img/pin-active.svg';
 
-export const SortingType = {
-	Popular: 'Popular',
-	PriceLow: 'Price: low to high',
-	PriceHigh: 'Price: high to low',
-	Rated: 'Top rated first'
-} as const;
+export const STARS_RATING = [
+	{
+		name: 'perfect',
+		value: '5'
+	},
+	{
+		name: 'good',
+		value: '4'
+	},
+	{
+		name: 'not bad',
+		value: '3'
+	},
+	{
+		name: 'badly',
+		value: '2'
+	},
+	{
+		name: 'terribly',
+		value: '1'
+	}
+];
 
-export const sortCallbackMap: {[key: string]: (a: OfferProps, b: OfferProps) => number} = {
-	Popular: () => 0,
-	PriceLow: (a, b) => a.price - b.price,
-	PriceHigh: (a, b) => b.price - a.price,
-	Rated: (a, b) => b.rating - a.rating
+export enum SortingType {
+	Popular = 'Popular',
+	PriceLow = 'Price: low to high',
+	PriceHigh= 'Price: high to low',
+	Rated = 'Top rated first',
+}
+
+export const sortCallbackMap = {
+	Popular: (offers: OfferProps[]) => offers.slice(),
+	PriceLow: (offers: OfferProps[]) => offers.slice().sort((a, b) => a.price - b.price),
+	PriceHigh: (offers: OfferProps[]) => offers.slice().sort((a, b) => b.price - a.price),
+	Rated: (offers: OfferProps[]) => offers.slice().sort((a, b) => b.rating - a.rating)
 };
