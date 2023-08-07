@@ -18,9 +18,6 @@ export interface OfferProps {
 		location: Location;
 	};
 	location: Location;
-}
-
-export interface FullOfferProps extends Omit<OfferProps, 'previewImage'> {
 	description: string;
 	bedrooms: number;
 	goods: string[];
@@ -32,4 +29,3 @@ export interface FullOfferProps extends Omit<OfferProps, 'previewImage'> {
 	images: string[];
 	maxAdults: number;
 }
-
