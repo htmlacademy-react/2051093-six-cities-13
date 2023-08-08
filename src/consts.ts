@@ -7,6 +7,10 @@ export const enum AppRoute {
 	Offer = '/offer/:id',
 }
 
+export const APIRoute = {
+	Offers: '/offers'
+};
+
 export const enum AuthorizationStatus {
   Auth = 'AUTH',
   NoAuth = 'NO_AUTH',
@@ -70,3 +74,11 @@ export const sortCallbackMap = {
 	PriceHigh: (offers: OfferProps[]) => offers.slice().sort((a, b) => b.price - a.price),
 	Rated: (offers: OfferProps[]) => offers.slice().sort((a, b) => b.rating - a.rating)
 };
+
+export const enum Api {
+	baseURL = 'https://13.design.pages.academy/spec/six-cities',
+	authTokenKey = 'six-cities-token'
+}
+
+export const TIMEOUT = 5000;
+
