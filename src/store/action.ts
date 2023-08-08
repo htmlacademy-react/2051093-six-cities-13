@@ -9,3 +9,5 @@ export const getOfferList = createAction<OfferProps[]>('getOfferList');
 export const sortOffers = createAction<SortingType>('sortOffers');
 
 export const requireAuthrization = createAction<AuthorizationStatus>('reqireAuthorization');
+
+export const setLoadingStatus = createAction<boolean>('setLoadingStatus');
