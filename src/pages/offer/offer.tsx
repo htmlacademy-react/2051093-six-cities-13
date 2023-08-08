@@ -1,24 +1,22 @@
 import { Helmet } from 'react-helmet-async';
 import { Header } from '../../components/header';
-import { FullOfferProps, OfferProps } from '../../types/offer-types';
 import { useParams } from 'react-router-dom';
 import classNames from 'classnames';
-import { ReviewProps } from '../../types/review';
-import { Review } from '../../components/offer-page/reviews';
-import { ReviewForm } from '../../components/offer-page/review-form';
 import { NearPlacesOffers } from '../../components/cards/near-place-list';
 import { OffersMap } from '../../components/map/map';
 import { NotFoundPage } from '../not-found-page';
+import { useAppSelector } from '../../hooks';
+import { ReviewList } from '../../components/reviews/review-list';
+import { ReviewProps } from '../../types/review';
 
 type OfferPageProps = {
-	fullOffers: FullOfferProps[];
 	reviews: ReviewProps[];
-	offers: OfferProps[];
 }
 
-export const OfferPage = ({fullOffers, reviews, offers}: OfferPageProps) => {
+export const OfferPage = ({reviews}: OfferPageProps) => {
 	const {id} = useParams();
-	const fullOffer = fullOffers.find((item) => item.id === id);
+	const offersByCity = useAppSelector((state) => state.places);
+	const fullOffer = offersByCity.find((item) => item.id === id);
 	if (fullOffer === undefined) {
 		return <NotFoundPage />;
 	}
@@ -113,18 +111,10 @@ export const OfferPage = ({fullOffers, reviews, offers}: OfferPageProps) => {
 									</p>
 								</div>
 							</div>
-							<section className="offer__reviews reviews">
-								<h2 className="reviews__title">
-									Reviews · <span className="reviews__amount">{reviews.length}</span>
-								</h2>
-								<ul className="reviews__list">
-									{reviews.map((item) => <Review {...item} key={id}/>)}
-								</ul>
-								<ReviewForm />
-							</section>
+							<ReviewList reviews={reviews} isAuthorized/>
 						</div>
 					</div>
-					<OffersMap city={offers[0]} points={offers.slice(0, 4)} selectedPointId={fullOffer.id} className={'offer__map map'}/>
+					<OffersMap city={fullOffer} points={offersByCity.slice(0,3)} selectedPointId={fullOffer.id} className={'offer__map map'}/>
 				</section>
 				<div className="container">
 					<section className="near-places places">
@@ -132,7 +122,7 @@ export const OfferPage = ({fullOffers, reviews, offers}: OfferPageProps) => {
 							Other places in the neighbourhood
 						</h2>
 						<div className="near-places__list places__list">
-							<NearPlacesOffers offers={offers} />
+							<NearPlacesOffers />
 						</div>
 					</section>
 				</div>

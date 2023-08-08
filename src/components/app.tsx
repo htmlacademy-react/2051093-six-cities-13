@@ -7,16 +7,13 @@ import { OfferPage } from '../pages/offer/offer';
 import { NotFoundPage } from '../pages/not-found-page';
 import PrivateRoute from './private-route';
 import { HelmetProvider } from 'react-helmet-async';
-import { FullOfferProps, OfferProps } from '../types/offer-types';
 import { ReviewProps } from '../types/review';
 
 type AppProps = {
-	offers: OfferProps[];
-	fullOffers: FullOfferProps[];
 	reviews: ReviewProps[];
 }
 
-export const App = ({offers, fullOffers, reviews}: AppProps): JSX.Element => (
+export const App = ({reviews}: AppProps): JSX.Element => (
 	<HelmetProvider>
 		<BrowserRouter>
 			<Routes>
@@ -32,13 +29,13 @@ export const App = ({offers, fullOffers, reviews}: AppProps): JSX.Element => (
 					path={AppRoute.Favorites}
 					element={
 						<PrivateRoute authorizationStatus={AuthorizationStatus.Auth}>
-							<FavoritesPage offers={offers}/>
+							<FavoritesPage />
 						</PrivateRoute>
 					}
 				/>
 				<Route
 					path={AppRoute.Offer}
-					element={<OfferPage fullOffers={fullOffers} reviews={reviews} offers={offers}/>}
+					element={<OfferPage reviews={reviews} />}
 				/>
 				<Route
 					path='*'

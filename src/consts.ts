@@ -1,3 +1,5 @@
+import { OfferProps } from './types/offer-types';
+
 export const enum AppRoute {
 	Main = '/',
 	Login = '/login',
@@ -28,8 +30,43 @@ export const OFFER_TYPE = [
 	'hotel'
 ];
 
-export const URL_MARKER_DEFAULT =
-  'https://assets.htmlacademy.ru/content/intensive/javascript-1/demo/interactive-map/pin.svg';
+export const URL_MARKER_DEFAULT = './img/pin.svg';
 
-export const URL_MARKER_CURRENT =
-  'https://assets.htmlacademy.ru/content/intensive/javascript-1/demo/interactive-map/main-pin.svg';
+export const URL_MARKER_CURRENT = './img/pin-active.svg';
+
+export const STARS_RATING = [
+	{
+		name: 'perfect',
+		value: '5'
+	},
+	{
+		name: 'good',
+		value: '4'
+	},
+	{
+		name: 'not bad',
+		value: '3'
+	},
+	{
+		name: 'badly',
+		value: '2'
+	},
+	{
+		name: 'terribly',
+		value: '1'
+	}
+];
+
+export enum SortingType {
+	Popular = 'Popular',
+	PriceLow = 'Price: low to high',
+	PriceHigh= 'Price: high to low',
+	Rated = 'Top rated first',
+}
+
+export const sortCallbackMap = {
+	Popular: (offers: OfferProps[]) => offers.slice(),
+	PriceLow: (offers: OfferProps[]) => offers.slice().sort((a, b) => a.price - b.price),
+	PriceHigh: (offers: OfferProps[]) => offers.slice().sort((a, b) => b.price - a.price),
+	Rated: (offers: OfferProps[]) => offers.slice().sort((a, b) => b.rating - a.rating)
+};
