@@ -8,7 +8,12 @@ export const enum AppRoute {
 }
 
 export const APIRoute = {
-	Offers: '/offers'
+	Offers: '/offers',
+	OfferId: '/offers/:offerId',
+	Nearby: '/offers/:offerId/nearby',
+	Favorite: '/favorite',
+	Comments: '/comments/:offerId',
+	Login: '/login'
 };
 
 export const enum AuthorizationStatus {
@@ -76,7 +81,7 @@ export const sortCallbackMap = {
 };
 
 export const enum Api {
-	baseURL = 'https://13.design.pages.academy/spec/six-cities',
+	baseURL = 'https://13.design.pages.academy/six-cities',
 	authTokenKey = 'six-cities-token'
 }
 
