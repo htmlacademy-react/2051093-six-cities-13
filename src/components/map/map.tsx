@@ -33,6 +33,14 @@ export const OffersMap = (props: MapProps): JSX.Element =>{
 
 	useEffect(() => {
 		if (map) {
+			map.setView(
+				[city.location.latitude, city.location.longitude], city.location.zoom
+			);
+		}
+	}, [map, city]);
+
+	useEffect(() => {
+		if (map) {
 			const markerLayer = layerGroup().addTo(map);
 			points.forEach((point) => {
 				const marker = new Marker({

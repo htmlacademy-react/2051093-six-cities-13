@@ -3,8 +3,8 @@ import { PlaceCard } from './place-card';
 
 export const NearPlacesOffers = () => {
 	const selectedCity = useAppSelector((state) => state.city);
-	const places = useAppSelector((state) => state.places);
-	const offersByCity = places.filter((place) => place.city.name === selectedCity);
+	const offers = useAppSelector((state) => state.offers);
+	const offersByCity = offers.filter((offer) => offer.city.name === selectedCity);
 
 	return (
 		<div className="near-places__list places__list">
