@@ -1,3 +1,4 @@
+import { CSSProperties } from 'react';
 import { OfferProps } from './types/offer-types';
 
 export const enum AppRoute {
@@ -87,3 +88,18 @@ export const enum Api {
 
 export const TIMEOUT = 5000;
 
+
+export const containerStyle: CSSProperties = {
+	display: 'flex',
+	flexDirection: 'column',
+	alignItems: 'center',
+	justifyContent: 'center',
+	gap: '60px',
+	height: '100vh'
+};
+
+export const spinnerSize = 300;
+
+export const textStyle: CSSProperties = {
+	fontSize: '46px',
+};
