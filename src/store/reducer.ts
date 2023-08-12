@@ -1,14 +1,22 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { changeCity, getOfferList, sortOffers } from './action';
-import { CITIES, SortingType } from '../consts';
-import { mockOffers } from '../mocks/offers';
+import { changeCity, getOfferList, requireAuthrization, setLoadingStatus, sortOffers } from './action';
+import { AuthorizationStatus, CITIES, SortingType } from '../consts';
+import { OfferProps } from '../types/offer-types';
 
-const places = mockOffers();
+type InitialState = {
+	city: string;
+	offers: OfferProps[];
+	sort: string;
+	authorization: AuthorizationStatus;
+	isDataLoading: boolean;
+}
 
-const initialState = {
+const initialState: InitialState = {
 	city: CITIES[0],
-	places: places,
-	sort: SortingType.Popular
+	offers: [],
+	sort: SortingType.Popular,
+	authorization: AuthorizationStatus.Unknown,
+	isDataLoading: false,
 };
 
 export const reducer = createReducer(initialState, (builder) => {
@@ -17,9 +25,15 @@ export const reducer = createReducer(initialState, (builder) => {
 			state.city = action.payload;
 		})
 		.addCase(getOfferList, (state ,action) => {
-			state.places = action.payload;
+			state.offers = action.payload;
 		})
 		.addCase(sortOffers, (state, action) => {
 			state.sort = action.payload;
+		})
+		.addCase(requireAuthrization, (state, action) => {
+			state.authorization = action.payload;
+		})
+		.addCase(setLoadingStatus, (state, action) => {
+			state.isDataLoading = action.payload;
 		});
 });

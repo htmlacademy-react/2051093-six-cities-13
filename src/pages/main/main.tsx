@@ -8,7 +8,7 @@ import classNames from 'classnames';
 import { EmptyList } from '../../components/cards/empty-list';
 
 export const MainPage = () => {
-	const placeList = useAppSelector((state) => state.places);
+	const placeList = useAppSelector((state) => state.offers);
 	const isEmptyList = !placeList.length;
 	const mainPageClass = classNames(
 		'page__main',

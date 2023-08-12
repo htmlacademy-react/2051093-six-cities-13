@@ -4,7 +4,7 @@ import { useAppSelector } from '../../hooks';
 import { FavoritesCard } from './favorite-card';
 
 export const FavoriteList = () => {
-	const offers = useAppSelector((state) => state.places);
+	const offers = useAppSelector((state) => state.offers);
 
 	return (
 		<ul className="favorites__list">

@@ -1,3 +1,4 @@
+import { CSSProperties } from 'react';
 import { OfferProps } from './types/offer-types';
 
 export const enum AppRoute {
@@ -6,6 +7,15 @@ export const enum AppRoute {
 	Favorites = '/favorites',
 	Offer = '/offer/:id',
 }
+
+export const APIRoute = {
+	Offers: '/offers',
+	OfferId: '/offers/:offerId',
+	Nearby: '/offers/:offerId/nearby',
+	Favorite: '/favorite',
+	Comments: '/comments/:offerId',
+	Login: '/login'
+};
 
 export const enum AuthorizationStatus {
   Auth = 'AUTH',
@@ -69,4 +79,27 @@ export const sortCallbackMap = {
 	PriceLow: (offers: OfferProps[]) => offers.slice().sort((a, b) => a.price - b.price),
 	PriceHigh: (offers: OfferProps[]) => offers.slice().sort((a, b) => b.price - a.price),
 	Rated: (offers: OfferProps[]) => offers.slice().sort((a, b) => b.rating - a.rating)
+};
+
+export const enum Api {
+	baseURL = 'https://13.design.pages.academy/six-cities',
+	authTokenKey = 'six-cities-token'
+}
+
+export const TIMEOUT = 5000;
+
+
+export const containerStyle: CSSProperties = {
+	display: 'flex',
+	flexDirection: 'column',
+	alignItems: 'center',
+	justifyContent: 'center',
+	gap: '60px',
+	height: '100vh'
+};
+
+export const spinnerSize = 300;
+
+export const textStyle: CSSProperties = {
+	fontSize: '46px',
 };

@@ -14,22 +14,22 @@ type PlaceListProps = {
 export const PlaceList = ({handleMouseEnter, handleMouseLeave, selectedOfferId}:PlaceListProps) => {
 	const selectedCity = useAppSelector((state) => state.city);
 	const sort = useAppSelector((state) => state.sort);
-	const places = useAppSelector((state) => state.places);
+	const offers = useAppSelector((state) => state.offers);
 
-	const offersByCity = places.filter((place) => place.city.name === selectedCity);
-	const sortOffers = (offers: OfferProps[]) => {
+	const offersByCity = offers.filter((place) => place.city.name === selectedCity);
+	const sortOffers = (items: OfferProps[]) => {
 		switch (sort) {
 			case SortingType.PriceLow :
-				return sortCallbackMap.PriceLow(offers);
+				return sortCallbackMap.PriceLow(items);
 				break;
 			case SortingType.PriceHigh :
-				return sortCallbackMap.PriceHigh(offers);
+				return sortCallbackMap.PriceHigh(items);
 				break;
 			case SortingType.Rated :
-				return sortCallbackMap.Rated(offers);
+				return sortCallbackMap.Rated(items);
 				break;
 			default:
-				return sortCallbackMap.Popular(offers);
+				return sortCallbackMap.Popular(items);
 		}
 	};
 

@@ -8,40 +8,49 @@ import { NotFoundPage } from '../pages/not-found-page';
 import PrivateRoute from './private-route';
 import { HelmetProvider } from 'react-helmet-async';
 import { ReviewProps } from '../types/review';
+import { useAppSelector } from '../hooks';
+import { Preload } from './preload';
 
 type AppProps = {
 	reviews: ReviewProps[];
 }
 
-export const App = ({reviews}: AppProps): JSX.Element => (
-	<HelmetProvider>
-		<BrowserRouter>
-			<Routes>
-				<Route
-					path={AppRoute.Main}
-					element={<MainPage />}
-				/>
-				<Route
-					path={AppRoute.Login}
-					element={<LoginPage />}
-				/>
-				<Route
-					path={AppRoute.Favorites}
-					element={
-						<PrivateRoute authorizationStatus={AuthorizationStatus.Auth}>
-							<FavoritesPage />
-						</PrivateRoute>
-					}
-				/>
-				<Route
-					path={AppRoute.Offer}
-					element={<OfferPage reviews={reviews} />}
-				/>
-				<Route
-					path='*'
-					element={<NotFoundPage/>}
-				/>
-			</Routes>
-		</BrowserRouter>
-	</HelmetProvider>
-);
+export const App = ({reviews}: AppProps): JSX.Element => {
+	const isDataLoading = useAppSelector((state) => state.isDataLoading);
+	if (isDataLoading) {
+		return <Preload />;
+	}
+
+	return (
+		<HelmetProvider>
+			<BrowserRouter>
+				<Routes>
+					<Route
+						path={AppRoute.Main}
+						element={<MainPage />}
+					/>
+					<Route
+						path={AppRoute.Login}
+						element={<LoginPage />}
+					/>
+					<Route
+						path={AppRoute.Favorites}
+						element={
+							<PrivateRoute authorizationStatus={AuthorizationStatus.Auth}>
+								<FavoritesPage />
+							</PrivateRoute>
+						}
+					/>
+					<Route
+						path={AppRoute.Offer}
+						element={<OfferPage reviews={reviews} />}
+					/>
+					<Route
+						path='*'
+						element={<NotFoundPage/>}
+					/>
+				</Routes>
+			</BrowserRouter>
+		</HelmetProvider>
+	);
+};

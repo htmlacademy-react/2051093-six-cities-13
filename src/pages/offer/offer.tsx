@@ -15,7 +15,7 @@ type OfferPageProps = {
 
 export const OfferPage = ({reviews}: OfferPageProps) => {
 	const {id} = useParams();
-	const offersByCity = useAppSelector((state) => state.places);
+	const offersByCity = useAppSelector((state) => state.offers);
 	const fullOffer = offersByCity.find((item) => item.id === id);
 	if (fullOffer === undefined) {
 		return <NotFoundPage />;

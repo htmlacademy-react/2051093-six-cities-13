@@ -5,7 +5,7 @@ import { FavoriteList } from '../../components/cards/favorite-list';
 import { useAppSelector } from '../../hooks';
 
 export const FavoritesPage = () => {
-	const favoriteList = useAppSelector((state) => state.places);
+	const favoriteList = useAppSelector((state) => state.offers);
 	const isEmptyList = !favoriteList.length;
 
 	return (
