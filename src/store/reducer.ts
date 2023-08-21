@@ -1,5 +1,5 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { changeCity, getOfferList, requireAuthrization, setLoadingStatus, sortOffers } from './action';
+import { changeCity, getOfferList, requireAuthorization, setLoadingStatus, sortOffers } from './action';
 import { AuthorizationStatus, CITIES, SortingType } from '../consts';
 import { OfferProps } from '../types/offer-types';
 
@@ -30,7 +30,7 @@ export const reducer = createReducer(initialState, (builder) => {
 		.addCase(sortOffers, (state, action) => {
 			state.sort = action.payload;
 		})
-		.addCase(requireAuthrization, (state, action) => {
+		.addCase(requireAuthorization, (state, action) => {
 			state.authorization = action.payload;
 		})
 		.addCase(setLoadingStatus, (state, action) => {
