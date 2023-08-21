@@ -13,7 +13,7 @@ export const FavoritesPage = () => {
 			<Helmet>
 				<title>6 cities: favorites</title>
 			</Helmet>
-			<Header isAuthorized />
+			<Header />
 			<main className="page__main page__main--favorites">
 				<div className="page__favorites-container container">
 					{isEmptyList ? (

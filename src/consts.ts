@@ -14,7 +14,8 @@ export const APIRoute = {
 	Nearby: '/offers/:offerId/nearby',
 	Favorite: '/favorite',
 	Comments: '/comments/:offerId',
-	Login: '/login'
+	Login: '/login',
+	Logout: '/logout'
 };
 
 export const enum AuthorizationStatus {
