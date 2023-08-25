@@ -16,12 +16,27 @@ export const APIRoute = {
 	Comments: '/comments'
 };
 
+export enum NameSpace {
+	User = 'USER',
+	Offers = 'OFFERS',
+	Offer = 'OFFER',
+	Favorites = 'FAVORITES',
+	Comments = 'COMMENTS',
+	NearPlaces = 'NEAR_PLACES'
+}
+
 export const enum AuthorizationStatus {
   Auth = 'AUTH',
   NoAuth = 'NO_AUTH',
   Unknown = 'UNKNOWN',
 }
 
+export const enum RequestStatus {
+	Idle = 'Idle',
+	Pending = 'Pending',
+	Successed = 'Successed',
+	Failed = 'Failed',
+}
 
 export const CITIES = [
 	'Paris',
