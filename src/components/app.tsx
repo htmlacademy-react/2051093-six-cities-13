@@ -7,7 +7,6 @@ import { OfferPage } from '../pages/offer/offer';
 import { NotFoundPage } from '../pages/not-found-page';
 import PrivateRoute from './private-route';
 import { HelmetProvider } from 'react-helmet-async';
-import { ReviewProps } from '../types/review';
 import { useAppDispatch, useAppSelector } from '../hooks';
 import { Preload } from './preload';
 import { useEffect } from 'react';
@@ -15,11 +14,8 @@ import { checkAuthAction, fetchOffers } from '../store/api-action';
 import HistoryRouter from './history-route/history-route';
 import browserHistory from '../browser-history';
 
-type AppProps = {
-	reviews: ReviewProps[];
-}
 
-export const App = ({reviews}: AppProps): JSX.Element => {
+export const App = () => {
 	const authorization = useAppSelector((state) => state.authorization);
 	const isDataLoading = useAppSelector((state) => state.isDataLoading);
 	const dispatch = useAppDispatch();
@@ -48,14 +44,14 @@ export const App = ({reviews}: AppProps): JSX.Element => {
 					<Route
 						path={AppRoute.Favorites}
 						element={
-							<PrivateRoute >
+							<PrivateRoute>
 								<FavoritesPage />
 							</PrivateRoute>
 						}
 					/>
 					<Route
-						path={AppRoute.Offer}
-						element={<OfferPage reviews={reviews} />}
+						path={`${AppRoute.Offer}/:id`}
+						element={<OfferPage/>}
 					/>
 					<Route
 						path='*'

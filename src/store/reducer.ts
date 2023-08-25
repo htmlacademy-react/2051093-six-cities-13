@@ -1,7 +1,8 @@
 import { createReducer } from '@reduxjs/toolkit';
-import { changeCity, getOfferList, requireAuthorization, setLoadingStatus, sortOffers } from './action';
+import { addReview, changeCity, getCurrentOffer, getNearbyOfferList, getOfferList, getReviews, requireAuthorization, setLoadingStatus, sortOffers } from './action';
 import { AuthorizationStatus, CITIES, SortingType } from '../consts';
 import { OfferProps } from '../types/offer-types';
+import { ReviewProps } from '../types/review';
 
 type InitialState = {
 	city: string;
@@ -9,6 +10,9 @@ type InitialState = {
 	sort: string;
 	authorization: AuthorizationStatus;
 	isDataLoading: boolean;
+	offer: OfferProps;
+	reviews: ReviewProps[];
+	nearbyOffers: OfferProps[];
 }
 
 const initialState: InitialState = {
@@ -17,6 +21,9 @@ const initialState: InitialState = {
 	sort: SortingType.Popular,
 	authorization: AuthorizationStatus.Unknown,
 	isDataLoading: false,
+	offer: {} as OfferProps,
+	reviews: [],
+	nearbyOffers: [],
 };
 
 export const reducer = createReducer(initialState, (builder) => {
@@ -35,5 +42,17 @@ export const reducer = createReducer(initialState, (builder) => {
 		})
 		.addCase(setLoadingStatus, (state, action) => {
 			state.isDataLoading = action.payload;
+		})
+		.addCase(getCurrentOffer, (state, action) => {
+			state.offer = action.payload;
+		})
+		.addCase(getReviews, (state, action) => {
+			state.reviews = action.payload;
+		})
+		.addCase(getNearbyOfferList, (state ,action) => {
+			state.nearbyOffers = action.payload;
+		})
+		.addCase(addReview, (state, action) => {
+			state.reviews.push(action.payload);
 		});
 });

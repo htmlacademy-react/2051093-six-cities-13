@@ -1,45 +1,58 @@
 import { ChangeEvent, FormEvent, useState } from 'react';
 import { FormRating } from './form-rating';
+import { useAppDispatch } from '../../hooks';
+import { sendReview } from '../../store/api-action';
+import { CommentField } from '../../types/review';
 
+type FormProps = {
+	id: string | undefined;
+}
 
-export const ReviewForm = () => {
-	const [formData, setFormData] = useState({
-		comment: ''
-	});
-
+export const ReviewForm = ({id}: FormProps) => {
 	const ReviewValidate = {
 		MinTextLength: 50,
 		MaxTextLength: 300
 	} as const;
 
-	const handleFieldChange = ({target}: ChangeEvent<HTMLTextAreaElement>) => {
-		const comment = target.value;
-		setFormData({...formData, comment});
+	const dispatch = useAppDispatch();
+	const [review, setReview] = useState('');
+	const [rating, setRating] = useState('');
+	const isFormDisabled = review.length < ReviewValidate.MinTextLength || review.length > ReviewValidate.MaxTextLength || rating === '';
+
+	const handleFieldChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
+		setReview(event.target.value);
 	};
 
-	const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
-		evt.preventDefault();
+	const handleRatingChange = (event: ChangeEvent<HTMLInputElement>) => {
+		setRating(event.target.value);
 	};
 
-	const isDisabled = Boolean(
-		formData.comment.length < ReviewValidate.MinTextLength
-	);
+	const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+		event.preventDefault();
+		const form = event.currentTarget as CommentField;
+		if(id) {
+			dispatch(sendReview({
+				id,
+				comment: form.review.value,
+				rating: Number(form.rating.value),
+			}));
+		}
+	};
 
 	return (
 		<form className="reviews__form form" action="#" method="post" onSubmit={handleSubmit}>
 			<label className="reviews__label form__label" htmlFor="review">
 						Your review
 			</label>
-			<FormRating />
+			<FormRating onChange={handleRatingChange}/>
 			<textarea
 				className="reviews__textarea form__textarea"
 				id="review"
 				name="review"
 				placeholder="Tell how was your stay, what you like and what can be improved"
-				defaultValue={formData.comment}
-				onChange={handleFieldChange}
 				minLength={ReviewValidate.MinTextLength}
 				maxLength={ReviewValidate.MaxTextLength}
+				onChange={handleFieldChange}
 			/>
 			<div className="reviews__button-wrapper">
 				<p className="reviews__help">
@@ -51,13 +64,11 @@ export const ReviewForm = () => {
 				<button
 					className="reviews__submit form__submit button"
 					type="submit"
-					disabled={isDisabled}
+					disabled={isFormDisabled}
 				>
 							Submit
 				</button>
 			</div>
 		</form>
 	);
-
 };
-
