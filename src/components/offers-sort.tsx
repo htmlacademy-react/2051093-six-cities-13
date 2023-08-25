@@ -1,12 +1,13 @@
 import { useState } from 'react';
 import { SortingType } from '../consts';
 import { useAppDispatch, useAppSelector } from '../hooks';
-import { sortOffers } from '../store/action';
 import classNames from 'classnames';
+import { getSort } from '../store/offers-data/selectors';
+import { sortOffers } from '../store/offers-data/offers-data';
 
 export const OffersSort = () => {
 	const sortingType = Object.values(SortingType);
-	const sort = useAppSelector((state) => state.sort);
+	const sort = useAppSelector(getSort);
 	const dispatch = useAppDispatch();
 	const [isActiveState, setActiveState] = useState(false);
 

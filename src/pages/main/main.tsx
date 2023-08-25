@@ -6,9 +6,13 @@ import { useState } from 'react';
 import { useAppSelector } from '../../hooks';
 import classNames from 'classnames';
 import { EmptyList } from '../../components/cards/empty-list';
+import { RequestStatus } from '../../consts';
+import { Preload } from '../../components/preload';
+import { getOffers, getOffersRequestStatus } from '../../store/offers-data/selectors';
 
 export const MainPage = () => {
-	const placeList = useAppSelector((state) => state.offers);
+	const placeList = useAppSelector(getOffers);
+	const isDataLoading = useAppSelector(getOffersRequestStatus);
 	const isEmptyList = !placeList.length;
 	const mainPageClass = classNames(
 		'page__main',
@@ -25,30 +29,35 @@ export const MainPage = () => {
 	};
 
 	return (
-		<div className="page page--gray page--main">
-			<Helmet>
-				<title>6 cities</title>
-			</Helmet>
-			<Header />
-			<main className={mainPageClass}>
-				<h1 className="visually-hidden">Cities</h1>
-				<div className="tabs">
-					<section className="locations container">
-						<CityList />
-					</section>
+		<>
+			{isDataLoading === RequestStatus.Pending && <Preload/>}
+			{isDataLoading === RequestStatus.Successed && placeList && (
+				<div className="page page--gray page--main">
+					<Helmet>
+						<title>6 cities</title>
+					</Helmet>
+					<Header />
+					<main className={mainPageClass}>
+						<h1 className="visually-hidden">Cities</h1>
+						<div className="tabs">
+							<section className="locations container">
+								<CityList />
+							</section>
+						</div>
+						<div className="cities">
+							{isEmptyList ? (
+								<EmptyList />
+							) : (
+								<PlaceList
+									handleMouseEnter={handleMouseEnter}
+									handleMouseLeave={handleMouseLeave}
+									selectedOfferId={id}
+								/>
+							)}
+						</div>
+					</main>
 				</div>
-				<div className="cities">
-					{isEmptyList ? (
-						<EmptyList />
-					) : (
-						<PlaceList
-							handleMouseEnter={handleMouseEnter}
-							handleMouseLeave={handleMouseLeave}
-							selectedOfferId={id}
-						/>
-					)}
-				</div>
-			</main>
-		</div>
+			)}
+		</>
 	);
 };
