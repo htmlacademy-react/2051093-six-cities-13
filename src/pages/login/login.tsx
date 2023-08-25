@@ -4,9 +4,10 @@ import { AuthForm } from '../../components/auth-form';
 import { Navigate } from 'react-router-dom';
 import { useAppSelector } from '../../hooks';
 import { AppRoute, AuthorizationStatus } from '../../consts';
+import { getAuthorizationStatus } from '../../store/user-data/selectors';
 
 export const LoginPage = () => {
-	const authorization = useAppSelector((state) => state.authorization);
+	const authorization = useAppSelector(getAuthorizationStatus);
 
 	return (
 		authorization !== AuthorizationStatus.Auth ?

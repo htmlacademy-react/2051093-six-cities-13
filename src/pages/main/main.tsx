@@ -12,7 +12,7 @@ import { getOffers, getOffersRequestStatus } from '../../store/offers-data/selec
 
 export const MainPage = () => {
 	const placeList = useAppSelector(getOffers);
-	const isDataLoading = useAppSelector(getOffersRequestStatus);
+	const requestStatus = useAppSelector(getOffersRequestStatus);
 	const isEmptyList = !placeList.length;
 	const mainPageClass = classNames(
 		'page__main',
@@ -30,8 +30,8 @@ export const MainPage = () => {
 
 	return (
 		<>
-			{isDataLoading === RequestStatus.Pending && <Preload/>}
-			{isDataLoading === RequestStatus.Successed && placeList && (
+			{requestStatus === RequestStatus.Pending && <Preload/>}
+			{requestStatus === RequestStatus.Successed && placeList && (
 				<div className="page page--gray page--main">
 					<Helmet>
 						<title>6 cities</title>

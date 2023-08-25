@@ -2,13 +2,14 @@ import { Link } from 'react-router-dom';
 import { AppRoute, AuthorizationStatus } from '../consts';
 import { useAppDispatch, useAppSelector } from '../hooks';
 import { logoutAction } from '../store/api-action';
+import { getAuthorizationStatus } from '../store/user-data/selectors';
 
 type HeaderProps = {
 	hideNavigation?: boolean;
 };
 
 export const Header = ({hideNavigation = false}: HeaderProps) => {
-	const authorization = useAppSelector((state) => state.authorization);
+	const authorization = useAppSelector(getAuthorizationStatus);
 	const dispatch = useAppDispatch();
 
 	return (

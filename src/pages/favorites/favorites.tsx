@@ -3,9 +3,10 @@ import { Footer } from '../../components/footer';
 import { Header } from '../../components/header';
 import { FavoriteList } from '../../components/cards/favorite-list';
 import { useAppSelector } from '../../hooks';
+import { getFavorites } from '../../store/favorites-data/selector';
 
 export const FavoritesPage = () => {
-	const favoriteList = useAppSelector((state) => state.offers);
+	const favoriteList = useAppSelector(getFavorites);
 	const isEmptyList = !favoriteList.length;
 
 	return (
