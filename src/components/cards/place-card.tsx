@@ -2,6 +2,7 @@ import classNames from 'classnames';
 import { OfferProps } from '../../types/offer-types';
 import { Link } from 'react-router-dom';
 import { MouseEventHandler } from 'react';
+import { AppRoute } from '../../consts';
 
 type PlaceCardProps = {
 	offer: OfferProps;
@@ -10,11 +11,10 @@ type PlaceCardProps = {
 	onMouseLeave?: MouseEventHandler<HTMLElement> | undefined;
 };
 
-
 export const PlaceCard = ({offer, className, onMouseEnter, onMouseLeave}: PlaceCardProps) => {
 	const favoriteLabel = `${offer.isFavorite ? 'In' : 'To'} bookmarks`;
 	const favoriteClass = classNames('place-card__bookmark-button', {'place-card__bookmark-button--active' : offer.isFavorite}, 'button');
-	const href = `/offer/${offer.id}`;
+	const href = `${AppRoute.Offer}/${offer.id}`;
 
 	return (
 		<article className={className} onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>

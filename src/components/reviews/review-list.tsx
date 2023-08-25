@@ -1,22 +1,26 @@
 import { ReviewProps } from '../../types/review';
 import { Review } from './review';
-import { ReviewForm } from './review-form';
 
 type ReviewsProps = {
 	reviews: ReviewProps[];
-	isAuthorized?: boolean;
 }
 
-export const ReviewList = ({reviews, isAuthorized} : ReviewsProps) => (
-	<section className="offer__reviews reviews">
-		<h2 className="reviews__title">
+const MIN_REVIEWS_COUNT = 0;
+const MAX_REVIEWS_COUNT = 10;
+
+export const ReviewList = ({reviews} : ReviewsProps) => {
+
+	const sortedReviews = [...reviews]
+		.sort((a,b) => Date.parse(b.date) - Date.parse(a.date)).slice(MIN_REVIEWS_COUNT, MAX_REVIEWS_COUNT);
+	return (
+		<>
+			<h2 className="reviews__title">
 			Reviews · <span className="reviews__amount">{reviews.length}</span>
-		</h2>
-		<ul className="reviews__list">
-			{reviews.map((item) => <Review {...item} key={item.id}/>)}
-		</ul>
-		{isAuthorized ? (
-			<ReviewForm />
-		) : ('')}
-	</section>
-);
+			</h2>
+			<ul className="reviews__list">
+				{sortedReviews.map((item) => <Review {...item} key={item.id}/>)}
+			</ul>
+
+		</>
+	);
+};

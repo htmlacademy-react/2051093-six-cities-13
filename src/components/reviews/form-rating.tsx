@@ -1,43 +1,42 @@
-import { ChangeEvent, Fragment, useState } from 'react';
-import { STARS_RATING } from '../../consts';
+import { ChangeEvent, Fragment } from 'react';
 
+type RatingProps = {
+	onChange: (event: ChangeEvent<HTMLInputElement>) => void;
+}
 
-export const FormRating = () => {
-	type Star = typeof STARS_RATING[number]['value'];
-	const [reviewRating, setReviewRating] = useState<Star>();
-	const handleRatingChange = (evt: ChangeEvent<HTMLInputElement>) => {
-		const {value} = evt.target;
-		setReviewRating(value);
+export const FormRating = ({onChange} : RatingProps) => {
+	const ratingValues = {
+		'1': 'terribly',
+		'2': 'badly',
+		'3': 'not bad',
+		'4': 'good',
+		'5': 'perfect',
 	};
 
 	return (
 		<div className="reviews__rating-form form__rating">
-			{STARS_RATING.map(({value, name}) => {
-				const isChecked = value === reviewRating;
-
-				return (
-					<Fragment key={value}>
-						<input
-							className="form__rating-input visually-hidden"
-							name="rating"
-							value={value}
-							id={`${value}-stars`}
-							type="radio"
-							checked={isChecked}
-							onChange={handleRatingChange}
-						/>
-						<label
-							htmlFor={`${value}-stars`}
-							className="reviews__rating-label form__rating-label"
-							title={name}
-						>
-							<svg className="form__star-image" width={37} height={33}>
-								<use xlinkHref="#icon-star" />
-							</svg>
-						</label>
-					</Fragment>
-				);
-			})}
+			{Object.entries(ratingValues).reverse().map(([value, title]) => (
+				<Fragment key={value}>
+					<input
+						onChange={onChange}
+						className="form__rating-input visually-hidden"
+						name="rating"
+						defaultValue={value}
+						id={`${value}-stars`}
+						type="radio"
+						// disabled={isInputDisabled}
+					/>
+					<label
+						htmlFor={`${value}-stars`}
+						className="reviews__rating-label form__rating-label"
+						title={title}
+					>
+						<svg className="form__star-image" width="37" height="33">
+							<use xlinkHref="#icon-star"></use>
+						</svg>
+					</label>
+				</Fragment>
+			))}
 		</div>
 	);
 

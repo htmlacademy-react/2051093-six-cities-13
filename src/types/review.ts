@@ -9,3 +9,10 @@ export interface ReviewProps {
 	comment: string;
 	rating: number;
 }
+
+export type NewReview = Pick<ReviewProps, 'id' | 'comment' | 'rating'>;
+
+export type CommentField = HTMLFormElement & {
+	review: HTMLTextAreaElement;
+	rating: HTMLInputElement;
+};

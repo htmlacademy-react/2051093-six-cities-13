@@ -5,17 +5,15 @@ export const enum AppRoute {
 	Main = '/',
 	Login = '/login',
 	Favorites = '/favorites',
-	Offer = '/offer/:id',
+	Offer = '/offer',
 }
 
 export const APIRoute = {
 	Offers: '/offers',
-	OfferId: '/offers/:offerId',
-	Nearby: '/offers/:offerId/nearby',
 	Favorite: '/favorite',
-	Comments: '/comments/:offerId',
 	Login: '/login',
-	Logout: '/logout'
+	Logout: '/logout',
+	Comments: '/comments'
 };
 
 export const enum AuthorizationStatus {
@@ -44,29 +42,6 @@ export const OFFER_TYPE = [
 export const URL_MARKER_DEFAULT = './img/pin.svg';
 
 export const URL_MARKER_CURRENT = './img/pin-active.svg';
-
-export const STARS_RATING = [
-	{
-		name: 'perfect',
-		value: '5'
-	},
-	{
-		name: 'good',
-		value: '4'
-	},
-	{
-		name: 'not bad',
-		value: '3'
-	},
-	{
-		name: 'badly',
-		value: '2'
-	},
-	{
-		name: 'terribly',
-		value: '1'
-	}
-];
 
 export enum SortingType {
 	Popular = 'Popular',
