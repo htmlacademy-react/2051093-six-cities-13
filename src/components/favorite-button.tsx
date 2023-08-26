@@ -29,7 +29,6 @@ export const FavoriteButton = ({id, isFavorite, className, size}: FavButtonProps
 		}
 
 		dispatch(isFavorite ? deleteFavorite(id) : addFavorite(id));
-		console.log('click');
 	};
 
 	return (
