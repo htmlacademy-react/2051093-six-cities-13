@@ -83,6 +83,32 @@ export const fetchFavorites = createAsyncThunk<OfferProps[], string, {
 	}
 );
 
+export const addFavorite = createAsyncThunk<OfferProps, string, {
+	dispatch: AppDispatch;
+	state: State;
+	extra: AxiosInstance;
+}>(
+	'addFavorite',
+	async (id, {extra: api}) => {
+		const {data: favorite} = await api.post<OfferProps>(`${APIRoute.Favorite}/${id}/1`);
+
+		return favorite;
+	}
+);
+
+export const deleteFavorite = createAsyncThunk<OfferProps, string, {
+	dispatch: AppDispatch;
+	state: State;
+	extra: AxiosInstance;
+}>(
+	'deleteFavorite',
+	async (id, {extra: api}) => {
+		const {data: favorite} = await api.post<OfferProps>(`${APIRoute.Favorite}/${id}/0`);
+
+		return favorite;
+	}
+);
+
 export const checkAuthAction = createAsyncThunk<void, undefined, {
   dispatch: AppDispatch;
   state: State;
@@ -94,16 +120,18 @@ export const checkAuthAction = createAsyncThunk<void, undefined, {
 	},
 );
 
-export const loginAction = createAsyncThunk<void, AuthData, {
+export const loginAction = createAsyncThunk<UserData, AuthData, {
   dispatch: AppDispatch;
   state: State;
   extra: AxiosInstance;
 }>(
 	'user/login',
 	async ({login: email, password}, {extra: api}) => {
-		const {data: {token}} = await api.post<UserData>(APIRoute.Login, {email, password});
-		saveToken(token);
-	},
+		const {data} = await api.post<UserData>(APIRoute.Login, {email, password});
+		saveToken(data.token);
+
+		return data;
+	}
 );
 
 export const logoutAction = createAsyncThunk<void, undefined, {

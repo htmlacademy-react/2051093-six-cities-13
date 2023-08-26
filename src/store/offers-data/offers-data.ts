@@ -7,7 +7,6 @@ const initialState: OffersData = {
 	city: CITIES[0],
 	offers: [],
 	sort: SortingType.Popular,
-	error: null,
 	offersRequestStatus: RequestStatus.Idle
 };
 

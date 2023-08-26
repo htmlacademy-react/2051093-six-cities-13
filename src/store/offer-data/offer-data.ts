@@ -6,7 +6,6 @@ import { fetchOffer } from '../api-action';
 
 const initialState: OfferData = {
 	offer: {} as OfferProps,
-	error: null,
 	offerRequestStatus: RequestStatus.Idle
 };
 

@@ -7,7 +7,6 @@ const initialState: ReviewsData = {
 	reviews: [],
 	reviewsRequestStatus: RequestStatus.Idle,
 	reviewSendingStatus: RequestStatus.Idle,
-	error: null
 };
 
 export const reviewsData = createSlice({

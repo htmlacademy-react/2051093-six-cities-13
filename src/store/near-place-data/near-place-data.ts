@@ -7,7 +7,6 @@ import { fetchNearPlaces } from '../api-action';
 const initialState: NearPlacesData = {
 	nearPlacesRequestStatus: RequestStatus.Idle,
 	places: [],
-	error: null,
 };
 
 export const nearPlacesData = createSlice({

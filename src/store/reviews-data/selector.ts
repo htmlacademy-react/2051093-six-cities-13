@@ -1,9 +1,8 @@
-import { NameSpace, RequestStatus } from '../../consts';
-import { ReviewProps } from '../../types/review';
+import { NameSpace } from '../../consts';
 import { State } from '../../types/state';
 
-export const getReviews = (state: State): ReviewProps[] => state[NameSpace.Comments].reviews;
+export const getReviews = (state: State) => state[NameSpace.Comments].reviews;
 
-export const getReviewsRequestStatus = (state: State): RequestStatus => state[NameSpace.Comments].reviewsRequestStatus;
+export const getReviewsRequestStatus = (state: State) => state[NameSpace.Comments].reviewsRequestStatus;
 
-export const getReviewSendingStatus = (state: State): RequestStatus => state[NameSpace.Comments].reviewSendingStatus;
+export const getReviewSendingStatus = (state: State) => state[NameSpace.Comments].reviewSendingStatus;
