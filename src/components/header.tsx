@@ -2,7 +2,8 @@ import { Link } from 'react-router-dom';
 import { AppRoute, AuthorizationStatus } from '../consts';
 import { useAppDispatch, useAppSelector } from '../hooks';
 import { logoutAction } from '../store/api-action';
-import { getAuthorizationStatus } from '../store/user-data/selectors';
+import { getAuthorizationStatus, getUserInfo } from '../store/user-data/selectors';
+import { getFavorites } from '../store/favorites-data/selector';
 
 type HeaderProps = {
 	hideNavigation?: boolean;
@@ -10,6 +11,8 @@ type HeaderProps = {
 
 export const Header = ({hideNavigation = false}: HeaderProps) => {
 	const authorization = useAppSelector(getAuthorizationStatus);
+	const userInfo = useAppSelector(getUserInfo);
+	const favorites = useAppSelector(getFavorites);
 	const dispatch = useAppDispatch();
 
 	return (
@@ -37,9 +40,9 @@ export const Header = ({hideNavigation = false}: HeaderProps) => {
 										>
 											<div className="header__avatar-wrapper user__avatar-wrapper"></div>
 											<span className="header__user-name user__name">
-											Oliver.conner@gmail.com
+												{userInfo.email}
 											</span>
-											<span className="header__favorite-count">3</span>
+											<span className="header__favorite-count">{favorites.length}</span>
 										</Link>
 									</li>
 									<li className="header__nav-item">

@@ -47,7 +47,7 @@ export const App = () => {
 						element={<OfferPage/>}
 					/>
 					<Route
-						path='*'
+						path={AppRoute.NotFound}
 						element={<NotFoundPage/>}
 					/>
 				</Routes>

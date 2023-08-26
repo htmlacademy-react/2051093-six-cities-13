@@ -3,19 +3,19 @@ import { Header } from '../../components/header';
 import classNames from 'classnames';
 import { NearPlacesOffers } from '../../components/cards/near-place-list';
 import { OffersMap } from '../../components/map/map';
-import { NotFoundPage } from '../not-found-page';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { ReviewList } from '../../components/reviews/review-list';
 import { useEffect } from 'react';
 import { fetchNearPlaces, fetchOffer, fetchReviews } from '../../store/api-action';
 import { Preload } from '../../components/preload';
-import { useParams } from 'react-router-dom';
-import { AuthorizationStatus, RequestStatus } from '../../consts';
+import { Navigate, useParams } from 'react-router-dom';
+import { AppRoute, AuthorizationStatus, RequestStatus, capitalize } from '../../consts';
 import { ReviewForm } from '../../components/reviews/review-form';
 import { getOffer, getOfferRequestStatus } from '../../store/offer-data/selector';
 import { getReviews, getReviewsRequestStatus } from '../../store/reviews-data/selector';
 import { getNearPlaces, getNearPlacesRequestStatus } from '../../store/near-place-data/selector';
 import { getAuthorizationStatus } from '../../store/user-data/selectors';
+import { FavoriteButton } from '../../components/favorite-button';
 
 export const OfferPage = () => {
 	const {id} = useParams();
@@ -39,16 +39,13 @@ export const OfferPage = () => {
 	}, [id, dispatch]);
 
 	if (offerRequestStatus === RequestStatus.Failed) {
-		return <NotFoundPage />;
+		return <Navigate to={AppRoute.NotFound} />;
 	}
-
-	const favoriteClass = classNames('offer__bookmark-button', {'offer__bookmark-button--active' : offer.isFavorite}, 'button');
-	const favoriteLabel = `${offer.isFavorite ? 'In' : 'To'} bookmarks`;
 
 	return (
 		<>
 			{offerRequestStatus === RequestStatus.Pending || reviewsRequestStatus === RequestStatus.Pending || nearPlacesRequestStatus === RequestStatus.Pending && <Preload />}
-			{offerRequestStatus === RequestStatus.Successed && offer && (
+			{offerRequestStatus === RequestStatus.Successed && (
 				<div className="page">
 					<Helmet>
 						<title>6 cities: offer</title>
@@ -72,12 +69,7 @@ export const OfferPage = () => {
 										</div>)}
 									<div className="offer__name-wrapper">
 										<h1 className="offer__name">{offer.title}</h1>
-										<button className={favoriteClass} type="button">
-											<svg className="offer__bookmark-icon" width={31} height={33}>
-												<use xlinkHref="#icon-bookmark" />
-											</svg>
-											<span className="visually-hidden">{favoriteLabel}</span>
-										</button>
+										<FavoriteButton id={offer.id} isFavorite={offer.isFavorite} className={'offer'} size={'big'} />
 									</div>
 									<div className="offer__rating rating">
 										<div className="offer__stars rating__stars">
@@ -87,7 +79,7 @@ export const OfferPage = () => {
 										<span className="offer__rating-value rating__value">{offer.rating}</span>
 									</div>
 									<ul className="offer__features">
-										<li className="offer__feature offer__feature--entire">{offer.type}</li>
+										<li className="offer__feature offer__feature--entire">{capitalize(offer.type)}</li>
 										<li className="offer__feature offer__feature--bedrooms">
 											{offer.bedrooms} Bedrooms
 										</li>
@@ -145,7 +137,7 @@ export const OfferPage = () => {
 							Other places in the neighbourhood
 								</h2>
 								<div className="near-places__list places__list">
-									{nearPlacesRequestStatus === RequestStatus.Successed && nearPlaces && (
+									{nearPlacesRequestStatus === RequestStatus.Successed && (
 										<NearPlacesOffers places={nearPlacesSliced} />
 									)}
 								</div>

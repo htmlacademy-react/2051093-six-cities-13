@@ -31,7 +31,7 @@ export const MainPage = () => {
 	return (
 		<>
 			{requestStatus === RequestStatus.Pending && <Preload/>}
-			{requestStatus === RequestStatus.Successed && placeList && (
+			{requestStatus === RequestStatus.Successed && (
 				<div className="page page--gray page--main">
 					<Helmet>
 						<title>6 cities</title>
