@@ -1,8 +1,10 @@
-import { ChangeEvent, FormEvent, useState } from 'react';
+import { ChangeEvent, FormEvent, useEffect, useRef, useState } from 'react';
 import { FormRating } from './form-rating';
-import { useAppDispatch } from '../../hooks';
+import { useAppDispatch, useAppSelector } from '../../hooks';
 import { sendReview } from '../../store/api-action';
 import { CommentField } from '../../types/review';
+import { getReviewSendingStatus } from '../../store/reviews-data/selector';
+import { RequestStatus } from '../../consts';
 
 type FormProps = {
 	id: string | undefined;
@@ -14,10 +16,14 @@ export const ReviewForm = ({id}: FormProps) => {
 		MaxTextLength: 300
 	} as const;
 
+	const reviewSendingStatus = useAppSelector(getReviewSendingStatus);
 	const dispatch = useAppDispatch();
 	const [review, setReview] = useState('');
 	const [rating, setRating] = useState('');
-	const isFormDisabled = review.length < ReviewValidate.MinTextLength || review.length > ReviewValidate.MaxTextLength || rating === '';
+	const formRef = useRef<HTMLFormElement | null>(null);
+	const isSuccess = reviewSendingStatus === RequestStatus.Successed;
+	const isFormDisabled = reviewSendingStatus === RequestStatus.Pending || review.length < ReviewValidate.MinTextLength || review.length > ReviewValidate.MaxTextLength || rating === '';
+	const isInputDisabled = reviewSendingStatus === RequestStatus.Pending;
 
 	const handleFieldChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
 		setReview(event.target.value);
@@ -39,8 +45,22 @@ export const ReviewForm = ({id}: FormProps) => {
 		}
 	};
 
+	useEffect(() => {
+		if(isSuccess) {
+			formRef.current?.reset();
+			setReview('');
+			setRating('');
+		}
+	}, [isSuccess]);
+
 	return (
-		<form className="reviews__form form" action="#" method="post" onSubmit={handleSubmit}>
+		<form
+			className="reviews__form form"
+			action="#"
+			method="post"
+			onSubmit={handleSubmit}
+			ref={formRef}
+		>
 			<label className="reviews__label form__label" htmlFor="review">
 						Your review
 			</label>
@@ -50,9 +70,9 @@ export const ReviewForm = ({id}: FormProps) => {
 				id="review"
 				name="review"
 				placeholder="Tell how was your stay, what you like and what can be improved"
-				minLength={ReviewValidate.MinTextLength}
-				maxLength={ReviewValidate.MaxTextLength}
+				value={review}
 				onChange={handleFieldChange}
+				disabled={isInputDisabled}
 			/>
 			<div className="reviews__button-wrapper">
 				<p className="reviews__help">

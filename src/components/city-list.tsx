@@ -1,12 +1,13 @@
 import classNames from 'classnames';
 import { useAppDispatch, useAppSelector } from '../hooks';
 import { Link } from 'react-router-dom';
-import { changeCity } from '../store/action';
+import { changeCity } from '../store/offers-data/offers-data';
 import { CITIES } from '../consts';
+import { getCity } from '../store/offers-data/selectors';
 
 export const CityList = () => {
 	const dispatch = useAppDispatch();
-	const selectedCity = useAppSelector((state) => state.city);
+	const selectedCity = useAppSelector(getCity);
 
 	return (
 		<ul className="locations__list tabs__list">

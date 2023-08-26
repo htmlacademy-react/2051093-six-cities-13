@@ -1,8 +1,8 @@
-import classNames from 'classnames';
 import { OfferProps } from '../../types/offer-types';
 import { Link } from 'react-router-dom';
 import { MouseEventHandler } from 'react';
-import { AppRoute } from '../../consts';
+import { AppRoute, capitalize } from '../../consts';
+import { FavoriteButton } from '../favorite-button';
 
 type PlaceCardProps = {
 	offer: OfferProps;
@@ -12,8 +12,6 @@ type PlaceCardProps = {
 };
 
 export const PlaceCard = ({offer, className, onMouseEnter, onMouseLeave}: PlaceCardProps) => {
-	const favoriteLabel = `${offer.isFavorite ? 'In' : 'To'} bookmarks`;
-	const favoriteClass = classNames('place-card__bookmark-button', {'place-card__bookmark-button--active' : offer.isFavorite}, 'button');
 	const href = `${AppRoute.Offer}/${offer.id}`;
 
 	return (
@@ -39,19 +37,7 @@ export const PlaceCard = ({offer, className, onMouseEnter, onMouseLeave}: PlaceC
 						<b className="place-card__price-value">€{offer.price}</b>
 						<span className="place-card__price-text">/&nbsp;night</span>
 					</div>
-					<button
-						className={favoriteClass}
-						type="button"
-					>
-						<svg
-							className="place-card__bookmark-icon"
-							width={18}
-							height={19}
-						>
-							<use xlinkHref="#icon-bookmark" />
-						</svg>
-						<span className="visually-hidden">{favoriteLabel}</span>
-					</button>
+					<FavoriteButton id={offer.id} isFavorite={offer.isFavorite} className={'place-card'} size={'small'} />
 				</div>
 				<div className="place-card__rating rating">
 					<div className="place-card__stars rating__stars">
@@ -62,7 +48,7 @@ export const PlaceCard = ({offer, className, onMouseEnter, onMouseLeave}: PlaceC
 				<h2 className="place-card__name">
 					<Link to={href}>{offer.title}</Link>
 				</h2>
-				<p className="place-card__type">{offer.type}</p>
+				<p className="place-card__type">{capitalize(offer.type)}</p>
 			</div>
 		</article>
 	);

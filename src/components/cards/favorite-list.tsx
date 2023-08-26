@@ -2,9 +2,10 @@ import { Link } from 'react-router-dom';
 import { CITIES } from '../../consts';
 import { useAppSelector } from '../../hooks';
 import { FavoritesCard } from './favorite-card';
+import { getFavorites } from '../../store/favorites-data/selector';
 
 export const FavoriteList = () => {
-	const offers = useAppSelector((state) => state.offers);
+	const offers = useAppSelector(getFavorites);
 
 	return (
 		<ul className="favorites__list">

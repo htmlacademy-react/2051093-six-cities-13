@@ -1,20 +1,21 @@
 import { SortingType, sortCallbackMap } from '../../consts';
 import { useAppSelector } from '../../hooks';
+import { getCity, getOffers, getSort } from '../../store/offers-data/selectors';
 import { OfferProps } from '../../types/offer-types';
 import { OffersMap } from '../map/map';
 import { OffersSort } from '../offers-sort';
 import { PlaceCard } from './place-card';
 
 type PlaceListProps = {
-	handleMouseEnter: (offerId: string) => void;
+	handleMouseEnter: (id: string) => void;
 	handleMouseLeave: () => void;
 	selectedOfferId: string | null;
 }
 
 export const PlaceList = ({handleMouseEnter, handleMouseLeave, selectedOfferId}:PlaceListProps) => {
-	const selectedCity = useAppSelector((state) => state.city);
-	const sort = useAppSelector((state) => state.sort);
-	const offers = useAppSelector((state) => state.offers);
+	const selectedCity = useAppSelector(getCity);
+	const sort = useAppSelector(getSort);
+	const offers = useAppSelector(getOffers);
 
 	const offersByCity = offers.filter((place) => place.city.name === selectedCity);
 	const sortOffers = (items: OfferProps[]) => {

@@ -6,6 +6,7 @@ export const enum AppRoute {
 	Login = '/login',
 	Favorites = '/favorites',
 	Offer = '/offer',
+	NotFound = '*'
 }
 
 export const APIRoute = {
@@ -16,12 +17,27 @@ export const APIRoute = {
 	Comments: '/comments'
 };
 
+export enum NameSpace {
+	User = 'USER',
+	Offers = 'OFFERS',
+	Offer = 'OFFER',
+	Favorites = 'FAVORITES',
+	Comments = 'COMMENTS',
+	NearPlaces = 'NEAR_PLACES'
+}
+
 export const enum AuthorizationStatus {
   Auth = 'AUTH',
   NoAuth = 'NO_AUTH',
   Unknown = 'UNKNOWN',
 }
 
+export const enum RequestStatus {
+	Idle = 'Idle',
+	Pending = 'Pending',
+	Successed = 'Successed',
+	Failed = 'Failed',
+}
 
 export const CITIES = [
 	'Paris',
@@ -57,6 +73,14 @@ export const sortCallbackMap = {
 	Rated: (offers: OfferProps[]) => offers.slice().sort((a, b) => b.rating - a.rating)
 };
 
+export const capitalize = (string: string) => {
+	if (!string) {
+		return string;
+	}
+
+	return string[0].toUpperCase() + string.slice(1);
+};
+
 export const enum Api {
 	baseURL = 'https://13.design.pages.academy/six-cities',
 	authTokenKey = 'six-cities-token'
@@ -79,3 +103,5 @@ export const spinnerSize = 300;
 export const textStyle: CSSProperties = {
 	fontSize: '46px',
 };
+
+export const getFavoriteStatusCode = (isFavorite: boolean): number => isFavorite ? 1 : 0;

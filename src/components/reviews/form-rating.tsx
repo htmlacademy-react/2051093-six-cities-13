@@ -1,10 +1,17 @@
 import { ChangeEvent, Fragment } from 'react';
+import { useAppSelector } from '../../hooks';
+import { getReviewSendingStatus } from '../../store/reviews-data/selector';
+import { RequestStatus } from '../../consts';
 
 type RatingProps = {
 	onChange: (event: ChangeEvent<HTMLInputElement>) => void;
 }
 
 export const FormRating = ({onChange} : RatingProps) => {
+	const reviewSendingStatus = useAppSelector(getReviewSendingStatus);
+	const isInputDisabled = reviewSendingStatus === RequestStatus.Pending;
+
+
 	const ratingValues = {
 		'1': 'terribly',
 		'2': 'badly',
@@ -24,7 +31,7 @@ export const FormRating = ({onChange} : RatingProps) => {
 						defaultValue={value}
 						id={`${value}-stars`}
 						type="radio"
-						// disabled={isInputDisabled}
+						disabled={isInputDisabled}
 					/>
 					<label
 						htmlFor={`${value}-stars`}

@@ -8,7 +8,7 @@ export interface OfferProps {
 	title: string;
 	type: string;
 	price: number;
-	isFavorite?: boolean;
+	isFavorite: boolean;
 	isPremium?: boolean;
 	rating: number;
 	previewImage: string;

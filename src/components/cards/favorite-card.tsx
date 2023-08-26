@@ -1,11 +1,9 @@
 import { Link } from 'react-router-dom';
 import { OfferProps } from '../../types/offer-types';
-import classNames from 'classnames';
+import { FavoriteButton } from '../favorite-button';
 
 
 export const FavoritesCard = (offer: OfferProps) => {
-	const favoriteLabel = `${offer.isFavorite ? 'In' : 'To'} bookmarks`;
-	const favoriteClass = classNames('place-card__bookmark-button', {'place-card__bookmark-button--active' : offer.isFavorite}, 'button');
 	const href = `/offer/${offer.id}`;
 
 	return (
@@ -33,19 +31,7 @@ export const FavoritesCard = (offer: OfferProps) => {
 						/&nbsp;night
 						</span>
 					</div>
-					<button
-						className={favoriteClass}
-						type="button"
-					>
-						<svg
-							className="place-card__bookmark-icon"
-							width={18}
-							height={19}
-						>
-							<use xlinkHref="#icon-bookmark" />
-						</svg>
-						<span className="visually-hidden">{favoriteLabel}</span>
-					</button>
+					<FavoriteButton id={offer.id} isFavorite={offer.isFavorite} className={'place-card'} size={'small'} />
 				</div>
 				<div className="place-card__rating rating">
 					<div className="place-card__stars rating__stars">
