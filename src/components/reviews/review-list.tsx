@@ -1,3 +1,4 @@
+import { getPluralWord } from '../../consts';
 import { ReviewProps } from '../../types/review';
 import { Review } from './review';
 
@@ -15,7 +16,7 @@ export const ReviewList = ({reviews} : ReviewsProps) => {
 	return (
 		<>
 			<h2 className="reviews__title">
-			Reviews · <span className="reviews__amount">{reviews.length}</span>
+				{getPluralWord('Review', reviews.length)} · <span className="reviews__amount">{reviews.length}</span>
 			</h2>
 			<ul className="reviews__list">
 				{sortedReviews.map((item) => <Review {...item} key={item.id}/>)}

@@ -104,4 +104,9 @@ export const textStyle: CSSProperties = {
 	fontSize: '46px',
 };
 
-export const getFavoriteStatusCode = (isFavorite: boolean): number => isFavorite ? 1 : 0;
+export const FavoriteStatusCode = {
+	Add: 1,
+	Remove: 0
+};
+
+export const getPluralWord = (noun: string, count: number) => (count !== 1 ? `${noun}s` : noun);

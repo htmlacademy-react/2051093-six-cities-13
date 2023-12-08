@@ -1,11 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { NameSpace, RequestStatus } from '../../consts';
-import { OfferProps } from '../../types/offer-types';
 import { OfferData } from '../../types/state';
 import { fetchOffer } from '../api-action';
 
 const initialState: OfferData = {
-	offer: {} as OfferProps,
+	offer: null,
 	offerRequestStatus: RequestStatus.Idle
 };
 

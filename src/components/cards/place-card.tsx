@@ -4,34 +4,46 @@ import { MouseEventHandler } from 'react';
 import { AppRoute, capitalize } from '../../consts';
 import { FavoriteButton } from '../favorite-button';
 
+
+type CardSize = 'small' | 'big'
+
 type PlaceCardProps = {
 	offer: OfferProps;
-	className?: string | undefined;
+	className: string;
 	onMouseEnter?: MouseEventHandler<HTMLElement> | undefined;
 	onMouseLeave?: MouseEventHandler<HTMLElement> | undefined;
+	size: CardSize;
 };
 
-export const PlaceCard = ({offer, className, onMouseEnter, onMouseLeave}: PlaceCardProps) => {
+const sizeValue: Record<CardSize, {width: string; height: string}> = {
+	small: {width: '150', height: '110'},
+	big: {width: '260', height: '200'}
+};
+
+export const PlaceCard = ({offer, className, onMouseEnter, onMouseLeave, size}: PlaceCardProps) => {
 	const href = `${AppRoute.Offer}/${offer.id}`;
 
 	return (
-		<article className={className} onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
+		<article
+			className={`${className}__card place-card`}
+			onMouseEnter={onMouseEnter}
+			onMouseLeave={onMouseLeave}
+		>
 			{offer.isPremium && (
 				<div className="place-card__mark">
 					<span>Premium</span>
 				</div>)}
-			<div className="cities__image-wrapper place-card__image-wrapper">
+			<div className={`${className}__image-wrapper place-card__image-wrapper`}>
 				<Link to={href}>
 					<img
 						className="place-card__image"
 						src={offer.previewImage}
-						width={260}
-						height={200}
+						{...sizeValue[size]}
 						alt="Place image"
 					/>
 				</Link>
 			</div>
-			<div className="place-card__info">
+			<div className={`place-card__info ${className}__info`}>
 				<div className="place-card__price-wrapper">
 					<div className="place-card__price">
 						<b className="place-card__price-value">€{offer.price}</b>

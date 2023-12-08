@@ -34,7 +34,7 @@ export const OffersMap = (props: MapProps): JSX.Element =>{
 	useEffect(() => {
 		if (map) {
 			map.setView(
-				[city.location.latitude, city.location.longitude], city.location.zoom
+				[city.location.latitude, city.location.longitude], city.city.location.zoom
 			);
 		}
 	}, [map, city]);

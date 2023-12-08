@@ -1,9 +1,10 @@
 import { Navigate } from 'react-router-dom';
-import { AppRoute, AuthorizationStatus } from '../consts';
+import { AppRoute, AuthorizationStatus, FavoriteStatusCode } from '../consts';
 import { useAppDispatch, useAppSelector } from '../hooks';
 import { getAuthorizationStatus } from '../store/user-data/selectors';
-import { addFavorite, deleteFavorite } from '../store/api-action';
+import { changeFavoriteAction } from '../store/api-action';
 import classNames from 'classnames';
+import { useState } from 'react';
 
 type ButtonSize = 'small' | 'big'
 
@@ -22,25 +23,28 @@ const sizeValue: Record<ButtonSize, {width: string; height: string}> = {
 export const FavoriteButton = ({id, isFavorite, className, size}: FavButtonProps) => {
 	const dispatch = useAppDispatch();
 	const authorization = useAppSelector(getAuthorizationStatus);
+	const [isActive, setActive] = useState(isFavorite);
+	const status = isActive ? FavoriteStatusCode.Remove : FavoriteStatusCode.Add;
 
 	const handleClick = () => {
 		if (authorization !== AuthorizationStatus.Auth) {
 			return <Navigate to={AppRoute.Login} />;
+		} else {
+			dispatch(changeFavoriteAction({id, status}));
+			setActive((state) => !state);
 		}
-
-		dispatch(isFavorite ? deleteFavorite(id) : addFavorite(id));
 	};
 
 	return (
 		<button
-			className={classNames(`${className}__bookmark-button`, {[`${className}__bookmark-button--active`] : isFavorite}, 'button')}
+			className={classNames(`${className}__bookmark-button`, {[`${className}__bookmark-button--active`] : isActive}, 'button')}
 			type="button"
 			onClick={handleClick}
 		>
 			<svg className={`${className}__bookmark-icon`} {...sizeValue[size]}>
 				<use xlinkHref="#icon-bookmark"></use>
 			</svg>
-			<span className="visually-hidden">{isFavorite ? 'In' : 'To'} bookmarks</span>
+			<span className="visually-hidden">{isActive ? 'In' : 'To'} bookmarks</span>
 		</button>
 	);
 };

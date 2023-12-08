@@ -1,17 +1,17 @@
 import { Route, Routes } from 'react-router-dom';
-import { MainPage } from '../pages/main/main';
-import { AppRoute } from '../consts';
-import { LoginPage } from '../pages/login/login';
-import { FavoritesPage } from '../pages/favorites/favorites';
-import { OfferPage } from '../pages/offer/offer';
-import { NotFoundPage } from '../pages/not-found-page';
-import PrivateRoute from './private-route';
+import { MainPage } from '../../pages/main/main';
+import { AppRoute } from '../../consts';
+import { LoginPage } from '../../pages/login/login';
+import { FavoritesPage } from '../../pages/favorites/favorites';
+import { OfferPage } from '../../pages/offer/offer';
+import { NotFoundPage } from '../../pages/not-found-page';
+import PrivateRoute from '../private-route';
 import { HelmetProvider } from 'react-helmet-async';
-import { useAppDispatch } from '../hooks';
+import { useAppDispatch } from '../../hooks';
 import { useEffect } from 'react';
-import { checkAuthAction, fetchOffers } from '../store/api-action';
-import HistoryRouter from './history-route/history-route';
-import browserHistory from '../browser-history';
+import { checkAuthAction, fetchOffers } from '../../store/api-action';
+import HistoryRouter from '../history-route/history-route';
+import browserHistory from '../../browser-history';
 
 
 export const App = () => {
