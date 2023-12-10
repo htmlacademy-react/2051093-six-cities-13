@@ -10,7 +10,6 @@ export type AppDispatch = typeof store.dispatch;
 export type UserProcess = {
   authorization: AuthorizationStatus;
 	user: UserData;
-	// checkAuthStatus: RequestStatus;
 };
 
 export type OffersData = {
@@ -21,7 +20,7 @@ export type OffersData = {
 }
 
 export type OfferData = {
-	offer: OfferProps;
+	offer: OfferProps | null;
 	offerRequestStatus: RequestStatus;
 }
 
@@ -41,6 +40,5 @@ export type NearPlacesData = {
 export type FavoritesData = {
 	offers: OfferProps[];
 	offersRequestStatus: RequestStatus;
-	offerAddStatus: RequestStatus;
-	offerDeleteStatus: RequestStatus;
+	offersCount: number;
 }

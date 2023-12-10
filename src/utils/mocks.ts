@@ -1,6 +1,9 @@
-import { CITIES, OFFER_TYPE } from '../consts';
+import { AuthorizationStatus, CITIES, OFFER_TYPE, RequestStatus, SortingType } from '../consts';
 import { Location, OfferProps } from '../types/offer-types';
 import { faker } from '@faker-js/faker';
+import { ReviewProps } from '../types/review';
+import { State } from '../types/state';
+import { UserData } from '../types/user-data';
 
 const mockLocation = ():Location => ({
 	latitude: faker.location.latitude({max: 54.5260, min: 53.0000}),
@@ -34,4 +37,50 @@ export const mockOfferItem = (): OfferProps => ({
 	maxAdults: faker.number.int({max: 10, min: 1}),
 });
 
+export const mockReviewItem = ():ReviewProps => ({
+	id: crypto.randomUUID(),
+	date: faker.date.recent().toString(),
+	user: {
+		name: faker.person.fullName(),
+		avatarUrl: faker.image.avatar(),
+		isPro: faker.datatype.boolean(),
+	},
+	comment: faker.lorem.paragraph(),
+	rating: faker.number.int({max: 5, min: 0}),
+});
+
+export const mockReviews = () => Array.from({length: 10}, mockReviewItem);
+
 export const mockOffers = () => Array.from({length:60}, mockOfferItem);
+
+export const makeFakeStore = (initialState?: Partial<State>): State => ({
+	USER: {
+		authorization: AuthorizationStatus.NoAuth,
+		user: {} as UserData
+	},
+	OFFERS: {
+		city: CITIES[0],
+		offers: mockOffers(),
+		sort: SortingType.Popular,
+		offersRequestStatus: RequestStatus.Idle
+	},
+	OFFER: {
+		offer: null,
+		offerRequestStatus: RequestStatus.Idle
+	},
+	FAVORITES: {
+		offers: mockOffers(),
+		offersRequestStatus: RequestStatus.Idle,
+		offersCount: 0
+	},
+	NEAR_PLACES: {
+		places: [],
+		nearPlacesRequestStatus: RequestStatus.Idle
+	},
+	COMMENTS: {
+		reviews: [],
+		reviewsRequestStatus: RequestStatus.Idle,
+		reviewSendingStatus: RequestStatus.Idle
+	},
+	...initialState ?? {},
+});

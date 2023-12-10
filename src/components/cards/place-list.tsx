@@ -1,4 +1,4 @@
-import { SortingType, sortCallbackMap } from '../../consts';
+import { SortingType, getPluralWord, sortCallbackMap } from '../../consts';
 import { useAppSelector } from '../../hooks';
 import { getCity, getOffers, getSort } from '../../store/offers-data/selectors';
 import { OfferProps } from '../../types/offer-types';
@@ -40,7 +40,7 @@ export const PlaceList = ({handleMouseEnter, handleMouseLeave, selectedOfferId}:
 		<div className="cities__places-container container">
 			<section className="cities__places places">
 				<h2 className="visually-hidden">Places</h2>
-				<b className="places__found">{offersByCity.length} places to stay in {selectedCity}</b>
+				<b className="places__found">{offersByCity.length} {getPluralWord('place', offersByCity.length)} to stay in {selectedCity}</b>
 				<OffersSort />
 				<div className="cities__places-list places__list tabs__content">
 					{sortedOffers.map((offer) => (
@@ -50,6 +50,7 @@ export const PlaceList = ({handleMouseEnter, handleMouseLeave, selectedOfferId}:
 							className={'cities__card place-card'}
 							onMouseEnter={() => handleMouseEnter(offer.id)}
 							onMouseLeave={handleMouseLeave}
+							size={'big'}
 						/>
 					))}
 				</div>

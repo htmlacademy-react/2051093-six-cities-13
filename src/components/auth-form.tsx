@@ -1,22 +1,26 @@
 import { FormEvent, useRef } from 'react';
 import { useAppDispatch } from '../hooks';
 import { loginAction } from '../store/api-action';
+import { toast } from 'react-toastify';
 
 export const AuthForm = () => {
 	const loginRef = useRef<HTMLInputElement | null>(null);
 	const passwordRef = useRef<HTMLInputElement | null>(null);
+
+	const PASSWORD_REGEXP = /^[a-z]+\d+|^\d+[a-z]+/gi;
 
 	const dispatch = useAppDispatch();
 
 	const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
 		evt.preventDefault();
 
-
-		if (loginRef.current !== null && passwordRef.current !== null) {
+		if (loginRef.current !== null && passwordRef.current !== null && passwordRef.current.value.match(PASSWORD_REGEXP)) {
 			dispatch(loginAction({
 				login: loginRef.current.value,
 				password: passwordRef.current.value
 			}));
+		} else{
+			toast.warn('Password must contain at least one number and letter');
 		}
 	};
 

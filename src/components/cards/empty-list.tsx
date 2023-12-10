@@ -1,7 +1,8 @@
 import { useAppSelector } from '../../hooks';
+import { getCity } from '../../store/offers-data/selectors';
 
 export const EmptyList = () => {
-	const city = useAppSelector((state) => state.city);
+	const city = useAppSelector(getCity);
 
 	return (
 		<div className="cities__places-container cities__places-container--empty container">
